@@ -78,11 +78,11 @@ let Register = {
     events: async () => { 
         document.querySelector(".login-link").addEventListener("click", e => {
           e.preventDefault();
-          Utils.routeTo("/#/");
+          Utils.routeTo("/Broadcasterapp/#/");
         });
         document.querySelector(".sign-up-btn").addEventListener("click", e => {
           e.preventDefault();
-          Utils.routeTo("/#/home");
+          Utils.routeTo("/Broadcasterapp/#/home");
         });
     }
 }

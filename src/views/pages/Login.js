@@ -44,11 +44,11 @@ let Login = {
   events: async () => {
       document.querySelector(".signup-link").addEventListener("click",(e)=>{
           e.preventDefault();
-          Utils.routeTo("/#/register");
+          Utils.routeTo("/Broadcasterapp/#/register");
       });
       document.querySelector(".login-btn").addEventListener("click", e => {
         e.preventDefault();
-        Utils.routeTo("/#/Home");
+        Utils.routeTo("/Broadcasterapp/#/Home");
       });
 
   }
