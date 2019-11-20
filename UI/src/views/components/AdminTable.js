@@ -7,7 +7,7 @@ let AdminTable = {
         return ` <tr>
                     <td>${index + 1}</td>
                     <td>
-                        <a href="/Broadcasterapp/#/red-flag/${post.id}"  class="link">
+                        <a href="/UI/Broadcasterapp/#/red-flag/${post.id}"  class="link">
                             ${post.title}
                         </a>
                     </td>
