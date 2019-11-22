@@ -22,7 +22,7 @@ const Utils = {
     return request;
   },
   routeTo: route => {
-    window.location.href = `/UI/Broadcasterapp${route}`;
+    window.location.href = `${route}`;
   },
   gmap: async (el, userLocation) => {
     let lat = userLocation.lat;
