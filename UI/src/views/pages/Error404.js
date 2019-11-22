@@ -4,7 +4,7 @@ let Error404 = {
             <div class="content">
               <div class="error-content">
                 <h1> 404 Error </h1>
-                <p>This page does't exist please <a class="link" href="/UI/Broadcasterapp/#/feed">go to Feed</a></p>
+                <p>This page does't exist please <a class="link" href="/Broadcasterapp/UI/#/feed">go to Feed</a></p>
               </div>
             </div>
         `;

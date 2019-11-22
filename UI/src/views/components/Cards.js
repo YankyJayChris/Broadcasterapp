@@ -52,7 +52,7 @@ let Cards = {
                     <h3 class="m-top">location: -1.9489, 30.1015</h3>
                 </div>
                 <div class="row comment-status">
-                    <a href="/UI/Broadcasterapp/#/red-flag/${post.id}" class="comment-btn child f-center"><h3>Read more</h3></a>
+                    <a href="/Broadcasterapp/UI/#/red-flag/${post.id}" class="comment-btn child f-center"><h3>Read more</h3></a>
                     <div class="comment-btn child f-center"><h3>Status: Draft</h3></div>
                 </div>
             </div>`

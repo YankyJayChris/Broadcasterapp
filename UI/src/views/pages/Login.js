@@ -33,7 +33,7 @@ let Login = {
                         </div>
                         <button class="btn login-btn full-width">Login</button>
                         <div class="call-out">
-                            <span>Need an account <a href="/UI/Broadcasterapp/#/register"  class="link signup-link">Sign up</a></span>
+                            <span>Need an account <a href="/Broadcasterapp/UI/#/register"  class="link signup-link">Sign up</a></span>
                         </div>
                     </form>
                 </div>
@@ -44,11 +44,11 @@ let Login = {
   events: async () => {
       document.querySelector(".signup-link").addEventListener("click",(e)=>{
           e.preventDefault();
-          Utils.routeTo("/#/register");
+          Utils.routeTo("/Broadcasterapp/UI/#/register");
       });
       document.querySelector(".login-btn").addEventListener("click", e => {
         e.preventDefault();
-        Utils.routeTo("/#/Home");
+        Utils.routeTo("/Broadcasterapp/UI/#/Home");
       });
 
   }
