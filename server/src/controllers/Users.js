@@ -63,8 +63,38 @@ const User = {
     @param {object} res
     @returns {object} users array
    */
-  login() {
-    // TO DO
+  signin(req, res) {
+    const user = userModel.findOneByEmail(req.body.email);
+    if (!user) {
+      return res.status(409).send({ error: 'Email or Password are incorrect' });
+    }
+    const ispassword = bcrypthash.comparepassword(req.body.password, user.password);
+    if (!ispassword) {
+      return res.status(409).send({ error: 'Email or Password are incorrect' });
+    }
+    const payloaad = {
+      id: user.id,
+      email: user.email,
+      type: user.type,
+    };
+    const token = jwtToken.createToken(payloaad);
+
+    return res.status(201).send({
+      message: 'User is successfully logged in',
+      data: {
+        token,
+        User: {
+          id: user.id,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          email: user.email,
+          username: user.username,
+          phoneNumber: user.phoneNumber,
+          avatar: user.avatar,
+          type: user.type,
+        },
+      },
+    });
   },
   getAll() {
     // TO DO
