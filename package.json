@@ -4,16 +4,11 @@
   "description": "Broadcaster server",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "serve": "nodemon --exec babel-node ./server/server.js",
     "start": "node dist/server.js",
     "build": "babel server -d dist"
   },
-  "keywords": [
-    "server"
-  ],
-  "author": "IGIHOZO Jean Christian",
-  "license": "MIT",
   "dependencies": {
     "@hapi/joi": "^16.1.7",
     "bcryptjs": "^2.4.3",
@@ -36,5 +31,18 @@
     "eslint-plugin-import": "^2.18.2",
     "mocha": "^6.2.2",
     "nodemon": "^1.19.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YankyJayChris/Broadcasterapp.git"
+  },
+  "keywords": [
+    "server"
+  ],
+  "author": "IGIHOZO Jean Christian",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/YankyJayChris/Broadcasterapp/issues"
+  },
+  "homepage": "https://github.com/YankyJayChris/Broadcasterapp#readme"
 }
