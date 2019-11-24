@@ -11,6 +11,10 @@ const schemas = {
     re_password: Joi.ref('password'),
     type: Joi.string().valid('user', 'admin'),
   }),
+  usersignin: Joi.object().keys({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).required(),
+  }),
 };
 
 const userValidator = (schema, property) => {
