@@ -8,6 +8,9 @@ const schemas = {
     location: Joi.string().pattern(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/).required(),
     status: Joi.string().valid('draft', 'under investigation', 'resolved', 'rejected'),
   }),
+  redFlagID: Joi.object().keys({
+    id: Joi.string().guid({ version: 'uuidv4' }),
+  }),
 };
 
 const redFlagValidator = (schema, property) => {

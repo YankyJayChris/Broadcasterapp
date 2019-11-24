@@ -47,8 +47,12 @@ const RedFlag = {
     @param {object} res
     @returns {object} redFlag object
    */
-  getOne() {
-    // TO DO
+  getOne(req, res) {
+    const redFlag = RedFlagModel.findOne(req.params.id);
+    if (!redFlag) {
+      return res.status(404).send({ message: 'redFlag not found' });
+    }
+    return res.status(200).send(redFlag);
   },
   /* @param {object} req
     @param {object} res

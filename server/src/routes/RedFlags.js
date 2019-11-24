@@ -13,5 +13,6 @@ const router = express.Router();
 router.post('/test', (req, res) => res.status(200).json({ msg: 'it\'s works' }));
 router.get('/', jwtToken.verifyToken, RedFlags.getAll);
 router.post('/', jwtToken.verifyToken, uploadFiles, redFlagValidator('redFlagPost', 'body'), RedFlags.create);
+router.get('/:id', jwtToken.verifyToken, redFlagValidator('redFlagID', 'params'), RedFlags.getOne);
 
 export default router;
