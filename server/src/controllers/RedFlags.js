@@ -13,8 +13,35 @@ const RedFlag = {
     @param {object} res
     @returns {object} redFlag object
    */
-  create() {
-    // TO DO
+  create(req, res) {
+    if (req.fileValidationError) {
+      return res.send(req.fileValidationError);
+    }
+    const images = [];
+    const videos = [];
+    const { files, user } = req;
+
+    const newRedflag = req.body;
+    if (files !== undefined) {
+      if (files.length <= 0) {
+        newRedflag.images = [];
+        newRedflag.videos = [];
+      } else {
+        files.forEach((file) => {
+          if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/pjpeg') {
+            images.push(`/public/upload/${file.filename}`);
+          } else {
+            videos.push(`/public/upload/${file.filename}`);
+          }
+        });
+      }
+    }
+
+    newRedflag.images = images;
+    newRedflag.videos = videos;
+    newRedflag.createdBy = user.id;
+    const redFlag = RedFlagModel.create(newRedflag);
+    return res.status(201).send(redFlag);
   },
   /* @param {object} req
     @param {object} res
