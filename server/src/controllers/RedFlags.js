@@ -1,18 +1,19 @@
-// import RedFlagModel from '../models/RedFlag';
+import RedFlagModel from '../models/RedFlag';
 
 const RedFlag = {
+  /* @param {object} req
+    @param {object} res
+    @returns {object} redFlags array
+   */
+  getAll(req, res) {
+    const redFlags = RedFlagModel.findAll();
+    return res.status(200).send(redFlags);
+  },
   /* @param {object} req
     @param {object} res
     @returns {object} redFlag object
    */
   create() {
-    // TO DO
-  },
-  /* @param {object} req
-    @param {object} res
-    @returns {object} redFlags array
-   */
-  getAll() {
     // TO DO
   },
   /* @param {object} req
