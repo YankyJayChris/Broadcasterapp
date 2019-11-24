@@ -36,7 +36,7 @@ Add additional notes about how to deploy this on a live system will go here afte
 
 ## Authors
 
-* **IGIHOZO Jean Christian** - *Initial work* - [PurpleBooth](https://github.com/YankyJayChris)
+* **IGIHOZO Jean Christian** - *Initial work* - [github](https://github.com/YankyJayChris)
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
