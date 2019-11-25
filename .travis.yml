@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+-11.6.0
+cache: npm
+
+install:
+  - npm ci
+cache:
+  directories:
+  - node_modules
+script:
+  - npm test
+  - npm run build
+
+deploy:

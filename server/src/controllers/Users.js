@@ -13,7 +13,7 @@ const User = {
    */
   register(req, res) {
     if (req.fileValidationError) {
-      return res.status(409).send({ error: req.fileValidationError });
+         return res.status(409).send({ error: req.fileValidationError });
     }
     const { body } = req;
     const exist = userModel.findOneByEmail(body.email);
