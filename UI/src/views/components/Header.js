@@ -32,7 +32,7 @@ let Header = {
           e.preventDefault();
           let mapscroll = document.getElementById("map-container");
           if(!mapscroll){
-            Utils.routeTo("/UI/Broadcasterapp/#/Home");
+            Utils.routeTo("/Broadcasterapp/UI/#/Home");
             document.getElementById("map-container").scrollIntoView();
           }else{
               document.getElementById("map-container").scrollIntoView();
