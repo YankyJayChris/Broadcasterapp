@@ -170,8 +170,13 @@ const User = {
     @param {object} res
     @returns {void} return statuc code 204
    */
-  delete() {
-    // TO DO
+  delete(req, res) {
+    const user = userModel.findOne(req.params.id);
+    if (!user) {
+      return res.status(404).send({ error: 'user not found' });
+    }
+    const ref = userModel.delete(req.params.id);
+    return res.status(204).send(ref);
   },
 };
 

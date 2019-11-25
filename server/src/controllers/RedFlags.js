@@ -94,8 +94,16 @@ const RedFlag = {
     @param {object} res
     @returns {void} return statuc code 204
    */
-  delete() {
-    // TO DO
+  delete(req, res) {
+    const redFlag = RedFlagModel.findOne(req.params.id);
+    if (!redFlag) {
+      return res.status(404).send({ error: 'redFlag not found' });
+    }
+    if (redFlag.createdBy !== req.user.id) {
+      return res.status(401).send({ error: 'this redflag is not yours' });
+    }
+    const ref = RedFlagModel.delete(req.params.id);
+    return res.status(204).send(ref);
   },
 };
 
