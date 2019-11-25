@@ -96,29 +96,75 @@ const User = {
       },
     });
   },
-  getAll() {
-    // TO DO
+  getAll(req, res) {
+    const users = userModel.findAll();
+    const myusers = [];
+    users.forEach((user) => {
+      const aUser = user;
+      delete aUser.password;
+      myusers.push(aUser);
+    });
+    return res.status(200).send({ data: myusers });
   },
   /* @param {object} req
     @param {object} res
     @returns {object} user object
    */
-  getOne() {
-    // TO DO
+  getOne(req, res) {
+    const user = userModel.findOne(req.params.id);
+    if (!user) {
+      return res.status(404).send({ error: 'user not found' });
+    }
+    return res.status(200).send(user);
   },
   /* @param {object} req
     @param {object} res
     @returns {object} updated user
    */
-  update() {
-    // TO DO
+  update(req, res) {
+    if (req.fileValidationError) {
+      return res.status(409).send({ error: req.fileValidationError });
+    }
+    const user = userModel.findOne(req.params.id);
+    if (!user) {
+      return res.status(404).send({ error: 'user not found' });
+    }
+    if (user.id !== req.user.id) {
+      return res.status(401).send({ error: 'this acount is not yours' });
+    }
+    const newData = {
+      firstname: req.body.firstname || user.firstname,
+      lastname: req.body.lastname || user.lastname,
+      email: req.body.email || user.email,
+      phoneNumber: req.body.phoneNumber || user.phoneNumber,
+      username: req.body.username || user.username,
+      password: req.body.password || user.password,
+    };
+    if (req.file) {
+      newData.avatar = `/public/avatar/${req.file.filename}`;
+    } else {
+      newData.avatar = user.avatar;
+    }
+    const updateduser = userModel.update(req.params.id, newData);
+    return res.status(200).send(updateduser);
   },
   /* @param {object} req
     @param {object} res
     @returns {object} updated user
    */
-  updateUserType() {
-    // TO DO
+  updateUserType(req, res) {
+    if (req.fileValidationError) {
+      return res.status(409).send({ error: req.fileValidationError });
+    }
+    const user = userModel.findOne(req.params.id);
+    if (!user) {
+      return res.status(404).send({ error: 'user not found' });
+    }
+    if (req.user.id !== 'admin') {
+      return res.status(403).send({ error: 'you are not an admin' });
+    }
+    const updateduser = userModel.update(req.params.id, { type: req.body.type });
+    return res.status(200).send(updateduser);
   },
   /* @param {object} req
     @param {object} res

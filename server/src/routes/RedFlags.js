@@ -14,5 +14,7 @@ router.post('/test', (req, res) => res.status(200).json({ msg: 'it\'s works' }))
 router.get('/', jwtToken.verifyToken, RedFlags.getAll);
 router.post('/', jwtToken.verifyToken, uploadFiles, redFlagValidator('redFlagPost', 'body'), RedFlags.create);
 router.get('/:id', jwtToken.verifyToken, redFlagValidator('redFlagID', 'params'), RedFlags.getOne);
+router.patch('/:id', jwtToken.verifyToken, redFlagValidator('redFlagUpdate', 'body'), RedFlags.update);
+router.patch('/status/:id', jwtToken.verifyToken, redFlagValidator('redFlagUpdate', 'body'), RedFlags.updateStatus);
 
 export default router;

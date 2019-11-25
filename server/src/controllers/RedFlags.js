@@ -58,15 +58,37 @@ const RedFlag = {
     @param {object} res
     @returns {object} updated redFlag
    */
-  update() {
-    // TO DO
+  update(req, res) {
+    const redFlag = RedFlagModel.findOne(req.params.id);
+    if (!redFlag) {
+      return res.status(404).send({ message: 'redFlag not found' });
+    }
+    if (redFlag.createdBy !== req.user.id) {
+      return res.status(401).send({ error: 'this redflag is not yours' });
+    }
+    const updateData = {
+      comment: req.body.comment,
+      location: req.body.location,
+      title: req.body.title,
+      type: req.body.type,
+    };
+    const updatedredFlag = RedFlagModel.update(req.params.id, updateData);
+    return res.status(200).send(updatedredFlag);
   },
   /* @param {object} req
     @param {object} res
     @returns {object} updated status redFlag
    */
-  updateStatus() {
-    // TO DO
+  updateStatus(req, res) {
+    const redFlag = RedFlagModel.findOne(req.params.id);
+    if (!redFlag) {
+      return res.status(404).send({ message: 'redFlag not found' });
+    }
+    if (req.user.type !== 'admin') {
+      return res.status(403).send({ error: 'you are not an admin' });
+    }
+    const updatedredFlag = RedFlagModel.update(req.params.id, { status: req.body.status });
+    return res.status(200).send(updatedredFlag);
   },
   /* @param {object} req
     @param {object} res
