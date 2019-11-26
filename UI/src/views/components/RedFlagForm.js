@@ -12,17 +12,17 @@ let RedFlagForm = {
                                 </select>
                             </span> 
                         </div>
-                        <div class="child link f-center">
+                        <div class="child link f-center addimages">
                             <i class="fa fa-images"></i> 
                             <span class="s-hide"> Add images</span>
                             <span class="l-hide">images</span>
-                            <input class="hide" id="imagefiles" type="file" />
+                            <input class="hide" id="imagefiles" type="file" accept=".png, .jpg, .jpeg" multiple/>
                         </div>
-                        <div class="child link f-center">
+                        <div class="child link f-center addvideos">
                             <i class="fa fa-file-video"></i> 
                             <span class="s-hide"> Add Videos</span>
                             <span class="l-hide">Videos</span>
-                            <input class="hide" id="videofiles" type="file" accept="video/mp4,video/x-m4v,video/*"/>
+                            <input class="hide" id="videofiles" type="file" accept="video/mp4,video/x-m4v,video/*" multiple/>
                         </div>
                     </div>
                     <div class="title">
@@ -49,7 +49,20 @@ let RedFlagForm = {
         `;
   },
   // All the code related to DOM interactions and controls
-  events: async () => {}
+  events: async () => {
+      const addImagesbtn = document.querySelector('.addimages');
+      const addVideosbtn = document.querySelector('.addvideos');
+      const inputImages = document.querySelector('#imagefiles');
+      const inputVideos = document.querySelector('#videofiles');
+
+
+      addImagesbtn.addEventListener('click',() =>{
+        inputImages.click();
+      });
+      addVideosbtn.addEventListener('click',() =>{
+        inputVideos.click();
+      });
+  }
 };
 
 export default RedFlagForm;

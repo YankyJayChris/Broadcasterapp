@@ -13,7 +13,7 @@ let Dashborad = {
         `;
   },
   // All the code related to DOM interactions and controls
-  events: async () => {}
+  events: async (type) => {}
 };
 
 export default Dashborad;

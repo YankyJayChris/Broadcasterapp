@@ -15,6 +15,7 @@ let Register = {
                             <label for="fname">First Name</label>
                             <input
                             type="text"
+                            id="fname"
                             class="f_input"
                             name="fname"
                             placeholder="Your name.."
@@ -24,15 +25,27 @@ let Register = {
                             <label for="lname">Last Name</label>
                             <input
                             type="text"
+                            id="lname"
                             class="f_input"
                             name="lname"
                             placeholder="Your last name.."
                             />
                         </div>
                         <div class="form-field">
+                            <label for="lname">Last Name</label>
+                            <input
+                            type="text"
+                            id="username"
+                            class="f_input"
+                            name="username"
+                            placeholder="Username.."
+                            />
+                        </div>
+                        <div class="form-field">
                             <label for="email">Email</label>
                             <input
                             type="text"
+                            id="email"
                             class="f_input"
                             name="email"
                             placeholder="Your Email.."
@@ -42,6 +55,7 @@ let Register = {
                             <label for="phone">Phone</label>
                             <input
                             type="phone"
+                            id="phone"
                             class="f_input"
                             name="phone"
                             placeholder="Your Phone number.."
@@ -51,6 +65,7 @@ let Register = {
                             <label for="password">password</label>
                             <input
                             type="password"
+                            id="password"
                             class="f_input"
                             name="password"
                             placeholder="Your password"
@@ -60,6 +75,7 @@ let Register = {
                             <label for="re-password">Confirm Password</label>
                             <input
                             type="password"
+                            id="re-password"
                             class="f_input"
                             name="re-password"
                             placeholder="confirm password"
@@ -82,6 +98,13 @@ let Register = {
         });
         document.querySelector(".sign-up-btn").addEventListener("click", e => {
           e.preventDefault();
+          const email = document.querySelector("#email").value;
+          const fname = document.querySelector("#fname").value;
+          const password = document.querySelector("#password").value;
+          const lname = document.querySelector("#lname").value;
+          const phone = document.querySelector("#phone").value;
+          const rePassword = document.querySelector("#re-password").value;
+          const username = document.querySelector("#username").value;
           Utils.routeTo("/Broadcasterapp/UI/#/home");
         });
     }
