@@ -4,15 +4,11 @@ import Error404 from "./views/pages/Error404.js";
 import Home from './views/pages/Home.js';
 import Feed from './views/pages/Feed.js';
 import Admin from './views/pages/Admin.js';
-
-
+import Users from './views/pages/Users.js';
 
 // import components
 import Header from "./views/components/Header.js";
 import RedFlag from "./views/components/RedFlag.js";
-
-import { getRedFlag } from "./store/actions/RedFlagAction.js";
-
 
 import Utils from './services/Utils.js'
 
@@ -22,6 +18,7 @@ const routes = {
   "/home": Home,
   "/feed": Feed,
   "/admin": Admin,
+  "/users": Users,
   "/red-flag/:id":RedFlag
 };
 

@@ -48,6 +48,8 @@ let Login = {
       });
       document.querySelector(".login-btn").addEventListener("click", e => {
         e.preventDefault();
+        const email = document.querySelector("#email").value;
+        const password = document.querySelector("#password").value;
         Utils.routeTo("/Broadcasterapp/UI/#/Home");
       });
 

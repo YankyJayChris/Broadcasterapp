@@ -26,8 +26,8 @@ let RedFlag = {
                 </div>
                 <div class="admin-links">
                     <div>
-                        <a class="btn" href="/Broadcasterapp/UI/#/">Red-flags</a>
-                        <a class="btn" href="/Broadcasterapp/UI/#/">Users</a>
+                        <a class="btn" href="/Broadcasterapp/UI/#/admin">Red-flags</a>
+                        <a class="btn" href="/Broadcasterapp/UI/#/users">Users</a>
                         <a class="btn" href="/Broadcasterapp/UI/#/">Log out</a>
                     </div>
                 </div>
