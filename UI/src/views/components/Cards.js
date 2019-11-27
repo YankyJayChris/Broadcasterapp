@@ -39,9 +39,10 @@ let Cards = {
                     </div>
                     <div class="edit-btn">
                        <span class="dropdown">
-                            <select>
-                                <option>Edit</option>
-                                <option>Delete</option>
+                            <select id='edit-delete' data-postId=${post.id}>
+                                <option>action</option>
+                                <option value='edit'>Edit</option>
+                                <option value='delete'>Delete</option>  
                             </select>
                         </span>
                     </div>
@@ -67,7 +68,19 @@ let Cards = {
       selector.forEach(mySlider);
 
       function mySlider(el,index){
-
+        const editBtn = el.querySelector("#edit-delete");
+        editBtn.addEventListener('change', () => {
+            if(editBtn.value == "edit"){
+                const postId = editBtn.getAttribute('data-postId');
+                Utils.routeTo(`/Broadcasterapp/UI/#/red-flag/${postId}/edit`);
+                console.log("edit click");    
+            }
+            if(editBtn.value == "delete"){
+                const postId = editBtn.getAttribute('data-postId');
+                Utils.routeTo(`/Broadcasterapp/UI/#/red-flag/${postId}/delete`);
+                console.log("delete click");    
+            }
+        });
         const images = el.querySelectorAll(".image-video-container");
         // console.log(images);
         if(!images){

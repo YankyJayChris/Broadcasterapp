@@ -146,7 +146,7 @@ img{
     transition: ease-in 0.3s;
 }
 .btn:hover{
-    background-color: #662f70;
+    opacity: 0.5;
 }
 
 .btn:focus{
@@ -200,20 +200,30 @@ img{
     justify-content: center;
     align-items: center;
 }
+.f-between{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .m-top {
     margin-top: 20px;
 }
-.bag-danger{
-    border-radius: 40%;
+.m-left {
+    margin-left: 20px;
+}
+.m-right {
+    margin-right: 20px;
+}
+.m-bottom {
+    margin-bottom: 20px;
+}
+.danger{
     background-color: #fd1d3b;
     color: #fff;
-    padding: 5px;
 }
-.bag-success{
-    border-radius: 40%;
+.success{
     background-color: #23f746;
     color: #fff;
-    padding: 5px;
 }
 
 
