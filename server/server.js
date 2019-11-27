@@ -11,9 +11,11 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => res.status(200).json({ msg: 'it\'s works' }));
+app.get('/', (req, res) => res.status(200).json({ message: 'welcom to Broadcaster' }));
 
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/red-flags', redFlags);
