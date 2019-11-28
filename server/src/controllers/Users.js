@@ -46,7 +46,7 @@ const User = {
       message: 'User created successfully',
       data: {
         token,
-        User: {
+        user: {
           firstname: savedUser.firstname,
           lastname: savedUser.lastname,
           email: savedUser.email,
@@ -83,7 +83,7 @@ const User = {
       message: 'User is successfully logged in',
       data: {
         token,
-        User: {
+        user: {
           id: user.id,
           firstname: user.firstname,
           lastname: user.lastname,
@@ -140,6 +140,12 @@ const User = {
       username: req.body.username || user.username,
       password: req.body.password || user.password,
     };
+    if (req.body.password) {
+      if (req.body.password !== req.body.re_password) {
+        return res.status(400).send({ error: 're_password must be equal to password' });
+      }
+      newData.password = bcrypthash.hashpassword(req.body.password);
+    }
     if (req.file) {
       newData.avatar = `/public/avatar/${req.file.filename}`;
     } else {
