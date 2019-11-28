@@ -7,7 +7,7 @@ process.env.NODE_ENV = 'test';
 
 const { expect } = chai;
 chai.use(chaiHttp);
-describe('Server!', () => {
+describe('GET /', () => {
   it('welcomes user to the api', (done) => {
     chai
       .request(server)

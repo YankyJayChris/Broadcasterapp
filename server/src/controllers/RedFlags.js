@@ -7,7 +7,7 @@ const RedFlag = {
    */
   getAll(req, res) {
     const redFlags = RedFlagModel.findAll();
-    return res.status(200).send(redFlags);
+    return res.status(200).send({ data: redFlags });
   },
   /* @param {object} req
     @param {object} res
@@ -15,7 +15,7 @@ const RedFlag = {
    */
   create(req, res) {
     if (req.fileValidationError) {
-      return res.send(req.fileValidationError);
+      return res.send({ error: req.fileValidationError });
     }
     const images = [];
     const videos = [];
@@ -41,7 +41,7 @@ const RedFlag = {
     newRedflag.videos = videos;
     newRedflag.createdBy = user.id;
     const redFlag = RedFlagModel.create(newRedflag);
-    return res.status(201).send(redFlag);
+    return res.status(201).send({ data: redFlag, message: 'Created red-flag record' });
   },
   /* @param {object} req
     @param {object} res
@@ -52,7 +52,7 @@ const RedFlag = {
     if (!redFlag) {
       return res.status(404).send({ message: 'redFlag not found' });
     }
-    return res.status(200).send(redFlag);
+    return res.status(200).send({ data: redFlag });
   },
   /* @param {object} req
     @param {object} res
@@ -73,7 +73,7 @@ const RedFlag = {
       type: req.body.type,
     };
     const updatedredFlag = RedFlagModel.update(req.params.id, updateData);
-    return res.status(200).send(updatedredFlag);
+    return res.status(200).send({ data: updatedredFlag, message: 'Updated red-flag record' });
   },
   /* @param {object} req
     @param {object} res
@@ -88,7 +88,7 @@ const RedFlag = {
       return res.status(403).send({ error: 'you are not an admin' });
     }
     const updatedredFlag = RedFlagModel.update(req.params.id, { status: req.body.status });
-    return res.status(200).send(updatedredFlag);
+    return res.status(200).send({ data: updatedredFlag, message: 'Updated red-flag record' });
   },
   /* @param {object} req
     @param {object} res
@@ -102,8 +102,8 @@ const RedFlag = {
     if (redFlag.createdBy !== req.user.id) {
       return res.status(401).send({ error: 'this redflag is not yours' });
     }
-    const ref = RedFlagModel.delete(req.params.id);
-    return res.status(204).send(ref);
+    const deletedredFlag = RedFlagModel.delete(req.params.id);
+    return res.status(204).send(deletedredFlag);
   },
 };
 
