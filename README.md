@@ -1,4 +1,6 @@
 # Broadcaster
+[![Build Status](https://travis-ci.com/YankyJayChris/Broadcasterapp.svg?branch=develop)](https://travis-ci.com/YankyJayChris/Broadcasterapp)
+[![Coverage Status](https://coveralls.io/repos/github/YankyJayChris/Broadcasterapp/badge.svg?branch=develop)](https://coveralls.io/github/YankyJayChris/Broadcasterapp?branch=develop)
 
 broadcaster is a single page application developed in vanilla javascript
 

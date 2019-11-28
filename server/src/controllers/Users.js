@@ -66,11 +66,11 @@ const User = {
   signin(req, res) {
     const user = userModel.findOneByEmail(req.body.email);
     if (!user) {
-      return res.status(409).send({ error: 'Email or Password are incorrect' });
+      return res.status(422).send({ error: 'Email or Password are incorrect' });
     }
     const ispassword = bcrypthash.comparepassword(req.body.password, user.password);
     if (!ispassword) {
-      return res.status(409).send({ error: 'Email or Password are incorrect' });
+      return res.status(422).send({ error: 'Email or Password are incorrect' });
     }
     const payloaad = {
       id: user.id,
