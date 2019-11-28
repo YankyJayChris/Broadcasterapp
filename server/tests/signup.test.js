@@ -7,7 +7,7 @@ process.env.NODE_ENV = 'test';
 
 const { expect } = chai;
 chai.use(chaiHttp);
-describe('SIGNUP /api/v1/auth/signup', () => {
+describe('POST /api/v1/auth/signup', () => {
   it('it should create a user when all field required exist', (done) => {
     const user = {
       firstname: 'chris',
