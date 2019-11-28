@@ -68,6 +68,16 @@ describe('/api/v1/red-flags', () => {
           done();
         });
     });
+    it('User should be able to delete single red-flag', (done) => {
+      chai.request(server)
+        .delete(`/api/v1/red-flags/${flag.id}`)
+        .set('x-access-token', userData.token)
+        .end((err, res) => {
+          expect(res).to.have.status(204);
+          expect(res.body).to.be.an('object');
+          done();
+        });
+    });
   });
   describe('GET /api/v1/red-flags', () => {
     it('User should be able to get all red-flag', (done) => {
