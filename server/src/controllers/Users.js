@@ -13,7 +13,7 @@ const User = {
    */
   register(req, res) {
     if (req.fileValidationError) {
-      return res.status(409).send({ error: req.fileValidationError });
+      return res.status(422).send({ error: req.fileValidationError });
     }
     const { body } = req;
     const exist = userModel.findOneByEmail(body.email);
@@ -79,7 +79,7 @@ const User = {
     };
     const token = jwtToken.createToken(payloaad);
 
-    return res.status(201).send({
+    return res.status(200).send({
       message: 'User is successfully logged in',
       data: {
         token,
@@ -146,7 +146,7 @@ const User = {
       newData.avatar = user.avatar;
     }
     const updateduser = userModel.update(req.params.id, newData);
-    return res.status(200).send(updateduser);
+    return res.status(200).send({ data: updateduser });
   },
   /* @param {object} req
     @param {object} res

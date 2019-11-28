@@ -4,7 +4,7 @@
   "description": "Broadcaster server",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --require @babel/register server/tests/* --recursive --exit",
+    "test": "nyc mocha --require @babel/register server/tests/* --recursive --exit",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "local:coveralls": "nyc npm run test && nyc report --reporter=text-lcov | coveralls",
     "serve": "nodemon --exec babel-node server/server.js",
