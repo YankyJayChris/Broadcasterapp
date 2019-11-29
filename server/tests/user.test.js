@@ -7,7 +7,7 @@ process.env.NODE_ENV = 'test';
 
 const { expect } = chai;
 chai.use(chaiHttp);
-describe('GET /api/v1/auth', () => {
+describe('/api/v1/auth', () => {
   const user = {
     firstname: 'dizzo',
     lastname: 'did did',
@@ -28,7 +28,7 @@ describe('GET /api/v1/auth', () => {
       });
   });
 
-  it('User should be able to get all users', (done) => {
+  it('GET /api/v1/auth/ User should be able to get all users', (done) => {
     chai.request(server)
       .get('/api/v1/auth/')
       .set('x-access-token', authData.token)
@@ -38,7 +38,7 @@ describe('GET /api/v1/auth', () => {
         done();
       });
   });
-  it('User should not be able to get all users if there is no token', (done) => {
+  it('GET /api/v1/auth/ User should not be able to get all users if there is no token', (done) => {
     chai.request(server)
       .get('/api/v1/auth/')
       .end((err, res) => {
@@ -47,7 +47,8 @@ describe('GET /api/v1/auth', () => {
         done();
       });
   });
-  it('User should be able to get single user', (done) => {
+
+  it('GET /api/v1/auth/ User should be able to get single user', (done) => {
     chai.request(server)
       .get(`/api/v1/auth/${authData.user.id}`)
       .set('x-access-token', authData.token)
@@ -57,7 +58,7 @@ describe('GET /api/v1/auth', () => {
         done();
       });
   });
-  it('User should be able to delete single user', (done) => {
+  it('DELETE /api/v1/auth/ User should be able to delete single user', (done) => {
     chai.request(server)
       .delete(`/api/v1/auth/${authData.user.id}`)
       .set('x-access-token', authData.token)
@@ -67,4 +68,5 @@ describe('GET /api/v1/auth', () => {
         done();
       });
   });
+  
 });
