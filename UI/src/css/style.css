@@ -556,6 +556,11 @@ img{
     color: #fff;
     background-color: #91509C;
 }
+.comment-status .status:hover{
+    cursor: pointer;
+    color: #fff;
+    background-color: white;
+}
 
 
 /* ==== admin page ======= */

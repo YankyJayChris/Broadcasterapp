@@ -125,7 +125,7 @@ const User = {
     if (req.fileValidationError) {
       return res.status(409).send({ error: req.fileValidationError });
     }
-    const user = userModel.findOne(req.params.id);
+    const user = userModel.findOne(req.user.id);
     if (!user) {
       return res.status(404).send({ error: 'user not found' });
     }
@@ -151,8 +151,18 @@ const User = {
     } else {
       newData.avatar = user.avatar;
     }
-    const updateduser = userModel.update(req.params.id, newData);
-    return res.status(200).send({ data: updateduser });
+    const updateduser = userModel.update(req.user.id, newData);
+    const userSend = {
+      id: updateduser.id,
+      firstname: updateduser.firstname,
+      lastname: updateduser.lastname,
+      email: updateduser.email,
+      username: updateduser.updatedusername,
+      phoneNumber: updateduser.phoneNumber,
+      avatar: updateduser.avatar,
+      type: updateduser.type,
+    };
+    return res.status(200).send({ data: userSend });
   },
   /* @param {object} req
     @param {object} res
@@ -170,7 +180,17 @@ const User = {
       return res.status(403).send({ error: 'you are not an admin' });
     }
     const updateduser = userModel.update(req.params.id, { type: req.body.type });
-    return res.status(200).send(updateduser);
+    const userSend = {
+      id: updateduser.id,
+      firstname: updateduser.firstname,
+      lastname: updateduser.lastname,
+      email: updateduser.email,
+      username: updateduser.updatedusername,
+      phoneNumber: updateduser.phoneNumber,
+      avatar: updateduser.avatar,
+      type: updateduser.type,
+    };
+    return res.status(200).send({ data: userSend });
   },
   /* @param {object} req
     @param {object} res

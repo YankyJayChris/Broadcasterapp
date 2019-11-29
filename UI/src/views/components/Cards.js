@@ -53,7 +53,7 @@ let Cards = {
                 </div>
                 <div class="row comment-status">
                     <a href="/#/red-flag/${post.id}" class="comment-btn child f-center"><h3>Read more</h3></a>
-                    <div class="comment-btn child f-center"><h3>Status: Draft</h3></div>
+                    <div class="status child f-center"><h3>Status: Draft</h3></div>
                 </div>
             </div>`
       )
