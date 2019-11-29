@@ -11,6 +11,10 @@ clone the repo to local folder
 open the project with vs code : to have advatege to use live server extetion to be able to run the UI project
 navigate inside the UI folder then use live server to run index.html file
 
+server
+clone the repo to local folder
+then run npm run start
+
 ### Prerequisites
 
 Things you need to install the software and how to install them
@@ -20,17 +24,17 @@ after install vs code download extetion live server from vs code marketplace
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-comming soon...
+to install all dependencies : npm i 
+To start server run : npm run start
 
 ## Running the tests
 
-Explain how to run the automated tests for this system will go here
+To run test run : npm run test
 
 ### And coding style tests
 
-Explain what these tests test and why will go here
+Linting Library: ​ESLint  
+Style Guide: ​Airbnb 
 
 ## Deployment
 

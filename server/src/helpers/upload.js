@@ -3,7 +3,7 @@ import multer from 'multer';
 
 const single = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, path.join(`${__dirname}/public/avatar`));
+    callback(null, path.join('../server/public/avatar'));
   },
   // eslint-disable-next-line consistent-return
   filename: (req, file, callback) => {
@@ -21,7 +21,7 @@ const single = multer.diskStorage({
 
 const multfile = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, path.join(`${__dirname}/public/upload`));
+    callback(null, path.join('../server/public/upload'));
   },
   // eslint-disable-next-line consistent-return
   filename: (req, file, callback) => {

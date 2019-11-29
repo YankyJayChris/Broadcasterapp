@@ -58,6 +58,17 @@ describe('/api/v1/auth', () => {
         done();
       });
   });
+  it('PATCH /api/v1/auth/update User should be able to update their record', (done) => {
+    chai.request(server)
+      .patch('/api/v1/auth/update')
+      .set('x-access-token', authData.token)
+      .attach('avatar', './server/public/upload/testimage.jpeg')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
   it('DELETE /api/v1/auth/ User should be able to delete single user', (done) => {
     chai.request(server)
       .delete(`/api/v1/auth/${authData.user.id}`)
@@ -68,5 +79,4 @@ describe('/api/v1/auth', () => {
         done();
       });
   });
-  
 });

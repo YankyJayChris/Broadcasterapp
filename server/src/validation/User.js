@@ -11,6 +11,15 @@ const schemas = {
     re_password: Joi.ref('password'),
     type: Joi.string().valid('user', 'admin'),
   }),
+  userUpdate: Joi.object().keys({
+    firstname: Joi.string(),
+    lastname: Joi.string(),
+    username: Joi.string().min(3).max(30),
+    email: Joi.string().email(),
+    phoneNumber: Joi.string(),
+    password: Joi.string().min(6).pattern(/^[a-zA-Z0-9]{3,30}$/),
+    type: Joi.string().valid('user', 'admin'),
+  }),
   usersignin: Joi.object().keys({
     email: Joi.string().email().required(),
     password: Joi.string().min(6).required(),
