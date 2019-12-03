@@ -52,8 +52,8 @@ let Cards = {
                     <h3 class="m-top">location: -1.9489, 30.1015</h3>
                 </div>
                 <div class="row comment-status">
-                    <a href="/#/red-flag/${post.id}" class="comment-btn child f-center"><h3>Read more</h3></a>
-                    <div class="status child f-center"><h3>Status: Draft</h3></div>
+                    <a href="/#/red-flag/${post.id}" class="comment-btn readmore child f-center"><h3>Read more</h3></a>
+                    <div class="child f-center"><h3>Status: Draft</h3></div>
                 </div>
             </div>`
       )

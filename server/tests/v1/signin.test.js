@@ -1,7 +1,7 @@
 // import the dev-dependencies
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import server from '../server';
+import server from '../../server';
 
 process.env.NODE_ENV = 'test';
 
