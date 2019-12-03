@@ -4,7 +4,7 @@
   "description": "Broadcaster server",
   "main": "server.js",
   "scripts": {
-    "test": "nyc mocha --require @babel/register server/tests/**/*.js* --recursive --exit",
+    "test": "nyc mocha --require @babel/polyfill --require @babel/register server/tests/**/*.js* --recursive --exit",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "local:coveralls": "nyc npm run test && nyc report --reporter=text-lcov | coveralls",
     "serve": "nodemon --exec babel-node server/server.js",
@@ -13,6 +13,7 @@
   "dependencies": {
     "@babel/core": "^7.7.2",
     "@babel/node": "^7.7.0",
+    "@babel/polyfill": "^7.7.0",
     "@babel/preset-env": "^7.7.1",
     "@babel/register": "^7.7.0",
     "@hapi/joi": "^16.1.7",

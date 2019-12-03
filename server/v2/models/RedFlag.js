@@ -66,34 +66,6 @@ class RedFlag {
   }
 
   /*
-    @create table
-  */
-  static createTable() {
-    const queryText = `CREATE TABLE IF NOT EXISTS
-      redflags(
-        id UUID PRIMARY KEY,
-        type VARCHAR(128) NOT NULL,
-        createdBy VARCHAR(128) NOT NULL,
-        title VARCHAR(128) NOT NULL,
-        status VARCHAR(128) NOT NULL,
-        location VARCHAR(128) NOT NULL,
-        comment text NOT NULL,
-        images text[],
-        videos text[],
-        createdOn TIMESTAMP,
-        modifiedDate TIMESTAMP
-      )`;
-
-    db.query(queryText)
-      .then(() => {
-        console.log('table created');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  /*
     drop table
   */
   static dropTable() {
