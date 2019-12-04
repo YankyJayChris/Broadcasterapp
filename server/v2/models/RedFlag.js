@@ -9,7 +9,7 @@ class RedFlag {
       redflags(
         id UUID PRIMARY KEY,
         type VARCHAR(128) NOT NULL,
-        createdBy VARCHAR(128) NOT NULL,
+        createdBy VARCHAR(128) references users(id),
         title VARCHAR(128) NOT NULL,
         status VARCHAR(128) NOT NULL,
         location VARCHAR(128) NOT NULL,

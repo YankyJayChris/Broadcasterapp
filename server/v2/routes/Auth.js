@@ -14,5 +14,4 @@ router.post('/test', (req, res) => res.status(200).json({ msg: 'it\'s works' }))
 router.post('/signup', uploadsingle, userValidator('signup', 'body'), Users.register);
 router.post('/signin', userValidator('usersignin', 'body'), Users.signin);
 
-
 export default router;

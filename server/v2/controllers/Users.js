@@ -17,8 +17,16 @@ const User = {
     }
     const { body } = req;
     const exist = await userModel.findOneByEmail(body.email);
+    const existUsername = await userModel.findOneByUsername(body.username);
+    const existPhone = await userModel.findOneByPhonenumber(body.phoneNumber);
     if (exist) {
       return res.status(409).send({ error: 'Email already exist' });
+    }
+    if (existUsername) {
+      return res.status(409).send({ error: 'Username already exist' });
+    }
+    if (existPhone) {
+      return res.status(409).send({ error: 'Phone number already exist' });
     }
     const newUser = {
       firstname: body.firstname,
