@@ -18,16 +18,15 @@ describe('POST /api/v2/auth/signin', () => {
     password: 'Password12',
     re_password: 'Password12',
   };
-  before((done) => {
-    // try {
+  before(async () => {
+    try {
     // eslint-disable-next-line no-unused-vars
-    const res = chai.request(server)
-      .post('/api/v2/auth/signup')
-      .send(user);
-    done();
-    // } catch (err) {
-    //   (() => { throw err; }).should.throw();
-    // }
+      const res = chai.request(server)
+        .post('/api/v2/auth/signup')
+        .send(user);
+    } catch (err) {
+      (() => { throw err; }).should.throw();
+    }
   });
   after((done) => {
     userModel.dropTable();
