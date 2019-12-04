@@ -8,8 +8,12 @@ const bcrypthash = {
     return hash;
   },
   comparepassword: (userpass, dbpass) => {
-    const isTrue = bcrypt.compareSync(userpass, dbpass);
-    return isTrue;
+    try {
+      const isTrue = bcrypt.compareSync(userpass, dbpass);
+      return isTrue;
+    } catch (err) {
+      return err;
+    }
   },
 };
 
