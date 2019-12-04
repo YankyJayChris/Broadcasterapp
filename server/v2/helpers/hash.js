@@ -7,8 +7,8 @@ const bcrypthash = {
     const hash = bcrypt.hashSync(pass, salt);
     return hash;
   },
-  comparepassword: (userpass, dbpass) => {
-    const isTrue = bcrypt.compareSync(userpass, dbpass);
+  comparepassword: async (userpass, dbpass) => {
+    const isTrue = await bcrypt.compareSync(userpass, dbpass);
     return isTrue;
   },
 };

@@ -70,7 +70,7 @@ const User = {
     if (!user) {
       return res.status(422).send({ error: 'Email or Password are incorrect' });
     }
-    const ispassword = bcrypthash.comparepassword(req.body.password, user.password);
+    const ispassword = await bcrypthash.comparepassword(req.body.password, user.password);
     if (!ispassword) {
       return res.status(422).send({ error: 'Email or Password are incorrect' });
     }
