@@ -12,8 +12,9 @@ process.env.NODE_ENV = 'test';
 const { expect } = chai;
 chai.use(chaiHttp);
 describe('POST /api/v2/auth/signup', () => {
-  after(() => {
+  after((done) => {
     userModel.dropTable();
+    done();
   });
   it('it should create a user when all field required exist', async () => {
     const user = {
@@ -31,7 +32,6 @@ describe('POST /api/v2/auth/signup', () => {
         .send(user);
       expect(res).to.have.status(201);
       expect(res.body).to.be.an('object');
-      console.log(res);
     } catch (err) {
       (() => { throw err; }).should.throw();
     }
