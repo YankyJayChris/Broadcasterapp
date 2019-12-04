@@ -13,10 +13,10 @@ class User {
         id UUID PRIMARY KEY,
         firstname VARCHAR(128) NOT NULL,
         lastname VARCHAR(128) NOT NULL,
-        email VARCHAR(128) NOT NULL,
-        username VARCHAR(128) NOT NULL,
+        email VARCHAR(128) NOT NULL UNIQUE,
+        username VARCHAR(128) NOT NULL UNIQUE,
         type VARCHAR(128) NOT NULL,
-        phoneNumber VARCHAR(128) NOT NULL,
+        phoneNumber VARCHAR(128) NOT NULL UNIQUE,
         avatar VARCHAR(128) NOT NULL,
         password VARCHAR(128) NOT NULL,
         createdDate TIMESTAMP,
@@ -92,6 +92,32 @@ class User {
     const text = 'SELECT * FROM users WHERE email = $1';
     try {
       const { rows } = await db.query(text, [email]);
+      return rows[0];
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /*  @param {uuid} id
+      @returns {object} user object
+   */
+  async findOneByUsername(username) {
+    const text = 'SELECT * FROM users WHERE username = $1';
+    try {
+      const { rows } = await db.query(text, [username]);
+      return rows[0];
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /*  @param {uuid} id
+      @returns {object} user object
+   */
+  async findOneByPhonenumber(phone) {
+    const text = 'SELECT * FROM users WHERE phoneNumber = $1';
+    try {
+      const { rows } = await db.query(text, [phone]);
       return rows[0];
     } catch (error) {
       return error;
