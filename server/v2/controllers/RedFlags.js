@@ -13,15 +13,18 @@ const RedFlag = {
     @param {object} res
     @returns {object} redFlag object
    */
-  create(req, res) {
+  async create(req, res) {
     if (req.fileValidationError) {
       return res.send({ error: req.fileValidationError });
     }
     const images = [];
     const videos = [];
-    const { files, user } = req;
-
-    const newRedflag = req.body;
+    const { files, user, body } = req;
+    const postExist = await RedFlagModel.findbeenCreated(user.id, body.title, body.comment);
+    if (postExist) {
+      return res.status(409).send({ message: 'redFlag already exist' });
+    }
+    const newRedflag = body;
     if (files !== undefined) {
       if (files.length <= 0) {
         newRedflag.images = [];

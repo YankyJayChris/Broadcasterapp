@@ -21,16 +21,19 @@ describe('POST /api/v2/auth/signin', () => {
   before(async () => {
     try {
     // eslint-disable-next-line no-unused-vars
-      const res = chai.request(server)
+      const res = await chai.request(server)
         .post('/api/v2/auth/signup')
         .send(user);
     } catch (err) {
       (() => { throw err; }).should.throw();
     }
   });
-  after((done) => {
-    userModel.dropTable();
-    done();
+  after(async () => {
+    try {
+      await userModel.dropTable();
+    } catch (err) {
+      (() => { throw err; }).should.throw();
+    }
   });
 
   it('User should be able to loggin', async () => {

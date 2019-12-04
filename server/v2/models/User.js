@@ -25,7 +25,7 @@ class User {
 
     db.query(queryText)
       .then(() => {
-        console.log('table created');
+        console.log('Users table created');
       })
       .catch((err) => {
         console.log(err);
@@ -159,7 +159,7 @@ class User {
         data.avatar || rows[0].avatar,
         data.type || rows[0].type,
         moment(new Date()),
-        id,
+        rows[0].id,
       ];
       const response = await db.query(updateOneQuery, values);
       return response.rows[0];
@@ -187,11 +187,11 @@ class User {
   /*
     drop table
   */
-  dropTable() {
+  async dropTable() {
     const queryText = 'DROP TABLE IF EXISTS users';
-    db.query(queryText)
+    await db.query(queryText)
       .then(() => {
-        console.log('table droped');
+        console.log('User table droped');
       })
       .catch((err) => {
         console.log(err);
