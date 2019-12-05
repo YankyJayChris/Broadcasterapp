@@ -133,7 +133,6 @@ class User {
         moment(new Date()),
         rows[0].id,
       ];
-      console.log(values);
       const response = await db.query(updateOneQuery, values);
       return response.rows[0];
     } catch (err) {
