@@ -22,7 +22,7 @@ class User {
       email: data.email || '',
       avatar: data.avatar || '',
       password: data.password || '',
-      type: data.type || 'user',
+      role: data.role || 'user',
       createdDate: moment.now(),
       modifiedDate: moment.now(),
     };
@@ -63,7 +63,7 @@ class User {
     this.users[index].phoneNumber = data.phoneNumber || user.phoneNumber;
     this.users[index].password = data.password || user.password;
     this.users[index].avatar = data.avatar || user.avatar;
-    this.users[index].type = data.type || user.type;
+    this.users[index].role = data.role || user.role;
     this.users[index].modifiedDate = moment.now();
     return this.users[index];
   }

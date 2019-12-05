@@ -9,7 +9,7 @@ const schemas = {
     phoneNumber: Joi.string().required(),
     password: Joi.string().min(6).pattern(/^[a-zA-Z0-9]{3,30}$/).required(),
     re_password: Joi.ref('password'),
-    type: Joi.string().valid('user', 'admin'),
+    role: Joi.string().valid('user', 'admin'),
   }),
   userUpdate: Joi.object().keys({
     firstname: Joi.string(),
@@ -18,7 +18,7 @@ const schemas = {
     email: Joi.string().email(),
     phoneNumber: Joi.string(),
     password: Joi.string().min(6).pattern(/^[a-zA-Z0-9]{3,30}$/),
-    type: Joi.string().valid('user', 'admin'),
+    role: Joi.string().valid('user', 'admin'),
   }),
   usersignin: Joi.object().keys({
     email: Joi.string().email().required(),

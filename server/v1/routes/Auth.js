@@ -16,7 +16,7 @@ router.post('/signin', userValidator('usersignin', 'body'), Users.signin);
 router.get('/', jwtToken.verifyToken, Users.getAll);
 router.get('/:id', jwtToken.verifyToken, userValidator('userID', 'params'), Users.getOne);
 router.patch('/update/', uploadsingle, jwtToken.verifyToken, userValidator('userUpdate', 'body'), Users.update);
-router.patch('/type/:id', jwtToken.verifyToken, userValidator('userID', 'params'), Users.updateUserType);
+router.patch('/type/:id', jwtToken.verifyToken, userValidator('userID', 'params'), Users.updateUserRole);
 router.delete('/:id', jwtToken.verifyToken, userValidator('userID', 'params'), Users.delete);
 
 export default router;
