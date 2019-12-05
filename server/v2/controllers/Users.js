@@ -162,6 +162,7 @@ const User = {
       newData.avatar = user.avatar;
     }
     const updateduser = await userModel.update(req.user.id, newData);
+    console.log(updateduser);
     const userSend = {
       id: updateduser.id,
       firstname: updateduser.firstname,

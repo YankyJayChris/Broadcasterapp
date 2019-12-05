@@ -115,7 +115,7 @@ class User {
   async update(id, data) {
     const queryString = 'SELECT * FROM users WHERE id=$1';
     const updateOneQuery = `UPDATE users
-      SET firstname=$1,lastname=$2,email=$3,phoneNumber=$4,password=$5,avatar=$6,role=$7,modifiedDate=$8
+      SET firstname=$1,lastname=$2,email=$3,phonenumber=$4,password=$5,avatar=$6,role=$7,modifiedDate=$8
       WHERE id=$9 returning *`;
     try {
       const { rows } = await db.query(queryString, [id]);
@@ -126,13 +126,14 @@ class User {
         data.firstname || rows[0].firstname,
         data.lastname || rows[0].lastname,
         data.email || rows[0].email,
-        data.phoneNumber || rows[0].phoneNumber,
+        data.phoneNumber || rows[0].phonenumber,
         data.password || rows[0].password,
         data.avatar || rows[0].avatar,
         data.role || rows[0].role,
         moment(new Date()),
         rows[0].id,
       ];
+      console.log(values);
       const response = await db.query(updateOneQuery, values);
       return response.rows[0];
     } catch (err) {
