@@ -3,8 +3,7 @@ import multer from 'multer';
 
 const single = multer.diskStorage({
   destination: (req, file, callback) => {
-    console.log(path.resolve(__dirname, './../../../../server/public/avatar'));
-    callback(null, path.resolve(__dirname, './../../../../server/public/avatar'));
+    callback(null, path.resolve(__dirname, './../../../server/public/avatar'));
   },
 
   filename: (req, file, callback) => {
@@ -23,7 +22,7 @@ const single = multer.diskStorage({
 
 const multfile = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, path.join(__dirname, './../../../../server/public/upload'));
+    callback(null, path.resolve(__dirname, './../../../server/public/upload'));
   },
 
   filename: (req, file, callback) => {

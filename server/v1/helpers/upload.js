@@ -3,10 +3,9 @@ import multer from 'multer';
 
 const single = multer.diskStorage({
   destination: (req, file, callback) => {
-    console.log(path.resolve(__dirname, './../../../../server/public/avatar'));
     callback(null, path.resolve(__dirname, './../../../../server/public/avatar'));
+    return null;
   },
-  // eslint-disable-next-line consistent-return
   filename: (req, file, callback) => {
     const match = ['image/png', 'image/jpeg', 'image/pjpeg'];
 
@@ -17,6 +16,7 @@ const single = multer.diskStorage({
 
     const filename = `${Date.now()}-${file.originalname}`;
     callback(null, filename);
+    return null;
   },
 });
 
@@ -24,7 +24,6 @@ const multfile = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, path.join(__dirname, './../../../../server/public/upload'));
   },
-  // eslint-disable-next-line consistent-return
   filename: (req, file, callback) => {
     const match = ['image/png', 'image/jpeg', 'image/pjpeg', 'video/mp4', 'application/x-mpegURL', 'video/MP2T', 'video/3gpp', 'video/quicktime', 'video/x-msvideo', 'video/x-ms-wmv'];
 
@@ -35,6 +34,7 @@ const multfile = multer.diskStorage({
 
     const filename = `${Date.now()}-${file.originalname}`;
     callback(null, filename);
+    return null;
   },
 });
 

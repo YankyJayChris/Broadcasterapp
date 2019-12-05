@@ -44,7 +44,6 @@ const RedFlag = {
     newRedflag.videos = videos;
     newRedflag.createdBy = user.id;
     const redFlag = await RedFlagModel.create(newRedflag);
-    console.log(redFlag);
     return res.status(201).send({ data: redFlag, message: 'Created red-flag record' });
   },
   /* @param {object} req
