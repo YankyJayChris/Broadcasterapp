@@ -30,6 +30,9 @@ app.use('/api/v1/auth', auth);
 app.use('/api/v1/red-flags', redFlags);
 app.use('/api/v2/auth', authV2);
 app.use('/api/v2/red-flags', redFlagsV2);
+app.use('*', (req, res) => {
+  res.status(404).json({ error: 'endpoint not found' });
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

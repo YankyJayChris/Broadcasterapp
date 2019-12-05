@@ -106,6 +106,116 @@ const User = {
       },
     });
   },
+
+  async getAll(req, res) {
+    const users = await userModel.findAll();
+    if (!users) {
+      return res.status(20).send({ message: 'users are empty' });
+    }
+    return res.status(200).send({ data: users.rows });
+  },
+
+  /* @param {object} req
+    @param {object} res
+    @returns {object} user object
+   */
+  async getOne(req, res) {
+    const user = await userModel.findOne(req.params.id);
+    if (!user) {
+      return res.status(404).send({ error: 'user not found' });
+    }
+    return res.status(200).send(user);
+  },
+
+  /* @param {object} req
+    @param {object} res
+    @returns {object} updated user
+   */
+  async update(req, res) {
+    if (req.fileValidationError) {
+      return res.status(409).send({ error: req.fileValidationError });
+    }
+    const user = await userModel.findOne(req.user.id);
+    if (!user) {
+      return res.status(404).send({ error: 'user not found' });
+    }
+    if (user.id !== req.user.id) {
+      return res.status(401).send({ error: 'this acount is not yours' });
+    }
+    const newData = {
+      firstname: req.body.firstname || user.firstname,
+      lastname: req.body.lastname || user.lastname,
+      email: req.body.email || user.email,
+      phoneNumber: req.body.phoneNumber || user.phoneNumber,
+      username: req.body.username || user.username,
+      password: req.body.password || user.password,
+    };
+    if (req.body.password) {
+      if (req.body.password !== req.body.re_password) {
+        return res.status(400).send({ error: 're_password must be equal to password' });
+      }
+      newData.password = bcrypthash.hashpassword(req.body.password);
+    }
+    if (req.file) {
+      newData.avatar = `/public/avatar/${req.file.filename}`;
+    } else {
+      newData.avatar = user.avatar;
+    }
+    const updateduser = await userModel.update(req.user.id, newData);
+    const userSend = {
+      id: updateduser.id,
+      firstname: updateduser.firstname,
+      lastname: updateduser.lastname,
+      email: updateduser.email,
+      username: updateduser.updatedusername,
+      phoneNumber: updateduser.phoneNumber,
+      avatar: updateduser.avatar,
+      role: updateduser.role,
+    };
+    return res.status(200).send({ data: userSend });
+  },
+
+  /* @param {object} req
+    @param {object} res
+    @returns {object} updated user
+   */
+  async updateUserRole(req, res) {
+    if (req.fileValidationError) {
+      return res.status(409).send({ error: req.fileValidationError });
+    }
+    const user = await userModel.findOne(req.params.id);
+    if (!user) {
+      return res.status(404).send({ error: 'user not found' });
+    }
+    if (req.user.id !== 'admin') {
+      return res.status(403).send({ error: 'you are not an admin' });
+    }
+    const updateduser = await userModel.update(req.params.id, { role: req.body.role });
+    const userSend = {
+      id: updateduser.id,
+      firstname: updateduser.firstname,
+      lastname: updateduser.lastname,
+      email: updateduser.email,
+      username: updateduser.updatedusername,
+      phoneNumber: updateduser.phoneNumber,
+      avatar: updateduser.avatar,
+      role: updateduser.role,
+    };
+    return res.status(200).send({ data: userSend });
+  },
+
+  /* @param {object} req
+    @param {object} res
+    @returns {void} return statuc code 204
+   */
+  async delete(req, res) {
+    const user = await userModel.findOne(req.params.id);
+    if (!user) {
+      return res.status(404).send({ error: 'user not found' });
+    }
+    const ref = await userModel.delete(req.params.id);
+    return res.status(204).send(ref);
+  },
 };
 
 export default User;

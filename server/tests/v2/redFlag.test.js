@@ -77,7 +77,7 @@ describe('/api/v2/red-flags', () => {
     });
   });
   describe('POST /api/v2/red-flags', () => {
-    // let flag;
+    let flag;
     const redFlagpost = {
       title: 'yes everything gonna be ok',
       comment: 'hhhhh we did talk together right hhh',
@@ -90,7 +90,7 @@ describe('/api/v2/red-flags', () => {
           .post('/api/v2/red-flags/')
           .send(redFlagpost)
           .set('x-access-token', userData.token);
-        // flag = res.body.data;
+        flag = res.body.data;
         expect(res).to.have.status(201);
         expect(res.body).to.be.an('object');
       } catch (err) {
@@ -109,6 +109,17 @@ describe('/api/v2/red-flags', () => {
           .send(myflag);
         expect(res).to.have.status(422);
         expect(res.body).to.have.a.property('error');
+      } catch (err) {
+        (() => { throw err; }).should.throw();
+      }
+    });
+    it('User should be able to get single red-flag', async () => {
+      try {
+        const res = await chai.request(server)
+          .get(`/api/v2/red-flags/${flag.id}`)
+          .set('x-access-token', userData.token);
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
       } catch (err) {
         (() => { throw err; }).should.throw();
       }
