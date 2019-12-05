@@ -55,7 +55,7 @@ describe('/api/v2/red-flags', () => {
     });
   });
   describe('POST /api/v2/red-flags', () => {
-    // let flag;
+    let flag;
     const redFlagpost = {
       title: 'hey i know you',
       comment: 'hhhhh we did talk together hell yes',
@@ -68,8 +68,20 @@ describe('/api/v2/red-flags', () => {
           .post('/api/v2/red-flags/')
           .send(redFlagpost)
           .set('x-access-token', userData.token);
-        // flag = res.body.data;
+        flag = res.body.data;
         expect(res).to.have.status(201);
+        expect(res.body).to.be.an('object');
+      } catch (err) {
+        (() => { throw err; }).should.throw();
+      }
+    });
+    it('User should be able to update red-flag', async () => {
+      try {
+        const res = await chai.request(server)
+          .patch(`/api/v1/red-flags/${flag.id}`)
+          .send({ comment: 'this post updated' })
+          .set('x-access-token', userData.token);
+        expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
       } catch (err) {
         (() => { throw err; }).should.throw();
