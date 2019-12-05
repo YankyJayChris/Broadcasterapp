@@ -35,7 +35,7 @@ describe('/api/v1/red-flags', () => {
   });
   describe('POST /api/v1/red-flags', () => {
     let flag;
-    it('User should be able to create red-flag when all require field do not exist', (done) => {
+    it('User should be able to create red-flag when all require field do exist', (done) => {
       chai.request(server)
         .post('/api/v1/red-flags/')
         .send(redFlagpost)
