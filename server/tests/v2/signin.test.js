@@ -18,6 +18,7 @@ describe('POST /api/v2/auth/signin', () => {
     password: 'Password12',
     re_password: 'Password12',
   };
+
   before(async () => {
     try {
       await chai.request(server)
