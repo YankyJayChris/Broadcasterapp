@@ -2,6 +2,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../server';
+import redflagModel from '../../v2/models/RedFlag';
 
 process.env.NODE_ENV = 'test';
 
@@ -20,12 +21,17 @@ describe('/api/v2/red-flags', () => {
   let userData;
   before(async () => {
     try {
-    // eslint-disable-next-line no-unused-vars
       const res = await chai.request(server)
         .post('/api/v2/auth/signup')
         .send(user);
-
       userData = res.body.data;
+    } catch (err) {
+      (() => { throw err; }).should.throw();
+    }
+  });
+  after(async () => {
+    try {
+      await redflagModel.dropTable();
     } catch (err) {
       (() => { throw err; }).should.throw();
     }
@@ -36,7 +42,6 @@ describe('/api/v2/red-flags', () => {
         const res = await chai.request(server)
           .get('/api/v2/red-flags/')
           .set('x-access-token', userData.token);
-
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
       } catch (err) {
@@ -63,6 +68,24 @@ describe('/api/v2/red-flags', () => {
       location: '-1.9497, 30.1007',
     };
     it('User should be able to create red-flag when all require field do not exist', async () => {
+      const redFlagwrong = {
+        title: 1,
+        comment: 'h',
+        type: 're',
+        location: '-1.9497, 10000',
+      };
+      try {
+        const res = await chai.request(server)
+          .post('/api/v2/red-flags/')
+          .send(redFlagwrong)
+          .set('x-access-token', userData.token);
+        expect(res).to.have.status(422);
+        expect(res.body).to.have.a.property('error');
+      } catch (err) {
+        (() => { throw err; }).should.throw();
+      }
+    });
+    it('User should not be able to create red-flag when wrong data are passed in', async () => {
       try {
         const res = await chai.request(server)
           .post('/api/v2/red-flags/')
@@ -81,7 +104,19 @@ describe('/api/v2/red-flags', () => {
           .patch(`/api/v1/red-flags/${flag.id}`)
           .send({ comment: 'this post updated' })
           .set('x-access-token', userData.token);
+        console.log(res.body);
         expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+      } catch (err) {
+        (() => { throw err; }).should.throw();
+      }
+    });
+    it('User should be able to delete single red-flag', async () => {
+      try {
+        const res = await chai.request(server)
+          .delete(`/api/v1/red-flags/${flag.id}`)
+          .set('x-access-token', userData.token);
+        expect(res).to.have.status(204);
         expect(res.body).to.be.an('object');
       } catch (err) {
         (() => { throw err; }).should.throw();

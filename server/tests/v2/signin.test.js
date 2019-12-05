@@ -3,6 +3,7 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../server';
 import userModel from '../../v2/models/User';
+import redflagModel from '../../v2/models/RedFlag';
 
 process.env.NODE_ENV = 'test';
 
@@ -30,6 +31,7 @@ describe('POST /api/v2/auth/signin', () => {
   });
   after(async () => {
     try {
+      await redflagModel.dropTable();
       await userModel.dropTable();
     } catch (err) {
       (() => { throw err; }).should.throw();

@@ -48,7 +48,7 @@ class RedFlag {
       @returns {object} redFlag object
    */
   async findOne(id) {
-    const text = 'SELECT redflags.id, redflags.title, redflags.comment, redflags.status, redflags.type, redflags.location, redflags.images, redflags.videos, redflags.createdBy, redflags.createdDate, redflags.modifiedDate, users.firstname, users.lastname, users.username, users.username, users.avatar FROM redflags JOIN users ON redflags.createdBy= users.id WHERE redflags.id= $1';
+    const text = 'SELECT redflags.id, redflags.title, redflags.comment, redflags.status, redflags.type, redflags.location, redflags.images, redflags.videos, redflags.createdBy, redflags.createdDate, redflags.modifiedDate, users.firstname, users.lastname, users.username, users.email, users.avatar FROM redflags JOIN users ON redflags.createdBy= users.id WHERE redflags.id= $1';
     try {
       const { rows } = await db.query(text, [id]);
       return rows[0];
@@ -134,7 +134,7 @@ class RedFlag {
     drop table
   */
   async dropTable() {
-    const queryText = 'DROP TABLE IF EXISTS redflags';
+    const queryText = 'TRUNCATE redflags CASCADE';
     await db.query(queryText);
   }
 

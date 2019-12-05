@@ -68,6 +68,15 @@ describe('/api/v1/red-flags', () => {
           done();
         });
     });
+    it('User should not be able to delete single red-flag when there is no token', (done) => {
+      chai.request(server)
+        .delete(`/api/v1/red-flags/${flag.id}`)
+        .end((err, res) => {
+          expect(res).to.have.status(403);
+          expect(res.body).to.have.a.property('error');
+          done();
+        });
+    });
     it('User should be able to delete single red-flag', (done) => {
       chai.request(server)
         .delete(`/api/v1/red-flags/${flag.id}`)

@@ -99,14 +99,16 @@ const RedFlag = {
    */
   async delete(req, res) {
     const redFlag = await RedFlagModel.findOne(req.params.id);
+    const thisflag = redFlag;
     if (!redFlag) {
       return res.status(404).send({ error: 'redFlag not found' });
     }
-    if (redFlag.createdBy !== req.user.id) {
+    if (thisflag.email !== req.user.email) {
+      console.log(thisflag.email);
       return res.status(401).send({ error: 'this redflag is not yours' });
     }
     const deletedredFlag = await RedFlagModel.delete(req.params.id);
-    return res.status(204).send(deletedredFlag);
+    return res.status(200).send(deletedredFlag);
   },
 };
 

@@ -160,7 +160,7 @@ class User {
     drop table
   */
   async dropTable() {
-    const queryText = 'DROP TABLE IF EXISTS users';
+    const queryText = 'TRUNCATE users CASCADE';
     await db.query(queryText);
   }
 
