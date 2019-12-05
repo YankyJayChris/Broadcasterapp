@@ -1,0 +1,63 @@
+Eg of a cool commit message```
+ feat(signup): create the signup feature
+ - create the ui for the feature
+ - modify some components
+ [Finishes #162836478]
+
+git commit -m "chore(server setup): create folder structure and following:
+
+ - add all dependencies need to start 
+ - setup babel
+ - setup linting library
+ 
+ [Finishes #169939327]"
+
+git commit -m "feat(signup): create the signup feature
+> 
+> - create user model
+> - create hash password helper
+> - create jwt token helper
+> - signup endpoint
+> - create signup validation
+> 
+> [Finishes #169940799]"
+
+git commit -m "feat(users pages): create users page feature
+ 
+ - create users page
+ - create usertable component
+ - some change in css for redflag page
+ - reduce the size of map component
+ 
+ [Finishes #169973263]"
+
+git commit -m "feat(edit/delete redflag): edit/delete red-flag feature
+ 
+ - modify redFlag component to be able to edit red-flag
+ - modify redflag component to be able to delete red-flag
+ 
+  [Finishes #169992827]"
+
+
+What did you complete yesterday?
+yesterday i completed the feed back you gave me
+What do you commit to today?
+to day i will be working on my api so that i can test them 
+When do you think you'll be done with that?
+i think i will be finishing my api to day.
+Any impediments in your way?
+N/A
+
+What does this PR do?
+PR for fix heroku depoyment
+
+Description of Task to be completed
+added babel/ci
+
+git commit -m "chore(signin test): create test of signin endpoint
+
+- create test file
+- create success test
+- create error test
+
+ [Finishes #170016342]"

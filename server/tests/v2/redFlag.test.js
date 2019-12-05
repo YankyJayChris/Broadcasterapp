@@ -49,6 +49,17 @@ describe('/api/v2/red-flags', () => {
         (() => { throw err; }).should.throw();
       }
     });
+    it('User should not be able to create red-flag when there is no token', async () => {
+      try {
+        const res = await chai.request(server)
+          .post('/api/v2/red-flags/')
+          .send(redFlagpost);
+        expect(res).to.have.status(403);
+        expect(res.body).to.have.a.property('error');
+      } catch (err) {
+        (() => { throw err; }).should.throw();
+      }
+    });
     it('User should be able to update red-flag', async () => {
       try {
         const res = await chai.request(server)
@@ -57,6 +68,30 @@ describe('/api/v2/red-flags', () => {
           .set('x-access-token', userData.token);
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
+      } catch (err) {
+        (() => { throw err; }).should.throw();
+      }
+    });
+    it('User should not be able to update red-flag wrong post id', async () => {
+      try {
+        const res = await chai.request(server)
+          .patch('/api/v2/red-flags/gvgvcgcfdctyvgvytctvg')
+          .send({ comment: 'this post updated' })
+          .set('x-access-token', userData.token);
+        expect(res).to.have.status(422);
+        expect(res.body).to.have.a.property('error');
+      } catch (err) {
+        (() => { throw err; }).should.throw();
+      }
+    });
+    it('User should not be able to update red-flag status if his not admin', async () => {
+      try {
+        const res = await chai.request(server)
+          .patch(`/api/v2/red-flags/status/${flag.id}`)
+          .send({ status: 'rejected' })
+          .set('x-access-token', userData.token);
+        expect(res).to.have.status(422);
+        expect(res.body).to.have.a.property('error');
       } catch (err) {
         (() => { throw err; }).should.throw();
       }
