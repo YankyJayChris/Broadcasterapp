@@ -65,6 +65,7 @@ class RedFlag {
     ];
     try {
       const { rows } = await db.query(text, values);
+      console.log(rows[0]);
       return rows[0];
     } catch (error) {
       return error;
@@ -75,7 +76,7 @@ class RedFlag {
       @returns {object} redFlag object
    */
   async findOne(id) {
-    const text = 'SELECT * FROM redflags WHERE id = $1';
+    const text = 'SELECT * FROM redflags LEFT JOIN users ON users.id= redflag.createdBy WHERE id = $1';
     try {
       const { rows } = await db.query(text, [id]);
       return rows[0];
@@ -101,9 +102,10 @@ class RedFlag {
     @returns {object} returns all redFlags
    */
   async findAll() {
-    const findAllQuery = 'SELECT * FROM redflags LEFT JOIN users ON users.id= redflag.createdBy';
+    const findAllQuery = 'SELECT * FROM redflags LEFT JOIN users ON users.id= redflags.createdBy';
     try {
       const { rows, rowCount } = await db.query(findAllQuery);
+      console.log(rowCount);
       return { rows, rowCount };
     } catch (error) {
       return error;

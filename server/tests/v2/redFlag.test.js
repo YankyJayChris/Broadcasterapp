@@ -54,4 +54,26 @@ describe('/api/v2/red-flags', () => {
       }
     });
   });
+  describe('POST /api/v1/red-flags', () => {
+    // let flag;
+    const redFlagpost = {
+      title: 'hey i know you',
+      comment: 'hhhhh we did talk together hell yes',
+      type: 'red-flag',
+      location: '-1.9497, 30.1007',
+    };
+    it('User should be able to create red-flag when all require field do not exist', async () => {
+      try {
+        const res = await chai.request(server)
+          .post('/api/v1/red-flags/')
+          .send(redFlagpost)
+          .set('x-access-token', userData.token);
+        // flag = res.body.data;
+        expect(res).to.have.status(201);
+        expect(res.body).to.be.an('object');
+      } catch (err) {
+        (() => { throw err; }).should.throw();
+      }
+    });
+  });
 });
