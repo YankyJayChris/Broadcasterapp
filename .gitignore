@@ -3,5 +3,4 @@
 package-lock.json
 /.nyc_output
 /coverage
-/server/public/avatar/*
 /server/public/upload/*
