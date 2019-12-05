@@ -101,7 +101,7 @@ class RedFlag {
     @returns {object} returns all redFlags
    */
   async findAll() {
-    const findAllQuery = 'SELECT * FROM redflags';
+    const findAllQuery = 'SELECT * FROM redflags LEFT JOIN users ON users.id= redflag.createdBy';
     try {
       const { rows, rowCount } = await db.query(findAllQuery);
       return { rows, rowCount };
