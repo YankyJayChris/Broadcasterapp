@@ -50,7 +50,7 @@ const RedFlag = {
   getOne(req, res) {
     const redFlag = RedFlagModel.findOne(req.params.id);
     if (!redFlag) {
-      return res.status(404).send({ message: 'redFlag not found' });
+      return res.status(422).send({ message: 'redFlag not found' });
     }
     return res.status(200).send({ data: redFlag });
   },
@@ -61,7 +61,7 @@ const RedFlag = {
   update(req, res) {
     const redFlag = RedFlagModel.findOne(req.params.id);
     if (!redFlag) {
-      return res.status(404).send({ message: 'redFlag not found' });
+      return res.status(422).send({ message: 'redFlag not found' });
     }
     if (redFlag.createdBy !== req.user.id) {
       return res.status(401).send({ error: 'this redflag is not yours' });

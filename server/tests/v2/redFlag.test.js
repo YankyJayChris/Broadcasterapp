@@ -68,6 +68,18 @@ describe('/api/v2/red-flags', () => {
           .set('x-access-token', userData.token);
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
+        expect(res.body).to.have.a.property('data');
+      } catch (err) {
+        (() => { throw err; }).should.throw();
+      }
+    });
+    it('User should not be able to get single red-flag', async () => {
+      try {
+        const res = await chai.request(server)
+          .get('/api/v2/red-flags/1234567889990000')
+          .set('x-access-token', userData.token);
+        expect(res).to.have.status(422);
+        expect(res.body).to.have.a.property('error');
       } catch (err) {
         (() => { throw err; }).should.throw();
       }
@@ -77,6 +89,17 @@ describe('/api/v2/red-flags', () => {
         const res = await chai.request(server)
           .delete(`/api/v2/red-flags/${flag.id}`);
         expect(res).to.have.status(403);
+        expect(res.body).to.have.a.property('error');
+      } catch (err) {
+        (() => { throw err; }).should.throw();
+      }
+    });
+    it('User should not be able to delete single red-flag when the id doesnt exist', async () => {
+      try {
+        const res = await chai.request(server)
+          .delete('/api/v2/red-flags/adasdasdsafasdvcvxzx')
+          .set('x-access-token', userData.token);
+        expect(res).to.have.status(422);
         expect(res.body).to.have.a.property('error');
       } catch (err) {
         (() => { throw err; }).should.throw();

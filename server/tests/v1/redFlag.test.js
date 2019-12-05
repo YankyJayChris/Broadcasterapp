@@ -65,6 +65,17 @@ describe('/api/v1/red-flags', () => {
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.an('object');
+          expect(res.body).to.have.a.property('data');
+          done();
+        });
+    });
+    it('User should not be able to get single red-flag', (done) => {
+      chai.request(server)
+        .get('/api/v1/red-flags/1234567889990000')
+        .set('x-access-token', userData.token)
+        .end((err, res) => {
+          expect(res).to.have.status(422);
+          expect(res.body).to.have.a.property('error');
           done();
         });
     });
@@ -73,6 +84,16 @@ describe('/api/v1/red-flags', () => {
         .delete(`/api/v1/red-flags/${flag.id}`)
         .end((err, res) => {
           expect(res).to.have.status(403);
+          expect(res.body).to.have.a.property('error');
+          done();
+        });
+    });
+    it('User should not be able to delete single red-flag when the id doesnt exist', (done) => {
+      chai.request(server)
+        .delete('/api/v1/red-flags/adasdasdsafasdvcvxzx')
+        .set('x-access-token', userData.token)
+        .end((err, res) => {
+          expect(res).to.have.status(422);
           expect(res.body).to.have.a.property('error');
           done();
         });
