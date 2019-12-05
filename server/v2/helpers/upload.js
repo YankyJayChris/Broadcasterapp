@@ -5,7 +5,6 @@ const single = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, path.resolve(__dirname, './../../../server/public/avatar'));
   },
-
   filename: (req, file, callback) => {
     const match = ['image/png', 'image/jpeg', 'image/pjpeg'];
 
