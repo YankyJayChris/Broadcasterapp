@@ -54,7 +54,7 @@ describe('/api/v2/red-flags', () => {
       }
     });
   });
-  describe('POST /api/v1/red-flags', () => {
+  describe('POST /api/v2/red-flags', () => {
     // let flag;
     const redFlagpost = {
       title: 'hey i know you',
@@ -65,12 +65,50 @@ describe('/api/v2/red-flags', () => {
     it('User should be able to create red-flag when all require field do not exist', async () => {
       try {
         const res = await chai.request(server)
-          .post('/api/v1/red-flags/')
+          .post('/api/v2/red-flags/')
           .send(redFlagpost)
           .set('x-access-token', userData.token);
         // flag = res.body.data;
         expect(res).to.have.status(201);
         expect(res.body).to.be.an('object');
+      } catch (err) {
+        (() => { throw err; }).should.throw();
+      }
+    });
+  });
+  describe('POST /api/v2/red-flags', () => {
+    // let flag;
+    const redFlagpost = {
+      title: 'yes everything gonna be ok',
+      comment: 'hhhhh we did talk together right hhh',
+      type: 'red-flag',
+      location: '-1.9497, 30.1007',
+    };
+    it('User should be able to create red-flag when all require field do not exist', async () => {
+      try {
+        const res = chai.request(server)
+          .post('/api/v2/red-flags/')
+          .send(redFlagpost)
+          .set('x-access-token', userData.token);
+        // flag = res.body.data;
+        expect(res).to.have.status(201);
+        expect(res.body).to.be.an('object');
+      } catch (err) {
+        (() => { throw err; }).should.throw();
+      }
+    });
+    it('it should not create a red-flag when all require field do not exist', async () => {
+      const myflag = {
+        comment: 'hhhhh we did talk together right hhh',
+        type: 'red-flag',
+        location: '-1.9497, 30.1007',
+      };
+      try {
+        const res = await chai.request(server)
+          .post('/api/v2/red-flags/')
+          .send(myflag);
+        expect(res).to.have.status(422);
+        expect(res.body).to.have.a.property('error');
       } catch (err) {
         (() => { throw err; }).should.throw();
       }
