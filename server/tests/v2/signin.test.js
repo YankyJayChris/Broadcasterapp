@@ -18,10 +18,10 @@ describe('POST /api/v2/auth/signin', () => {
     password: 'Password12',
     re_password: 'Password12',
   };
+
   before(async () => {
     try {
-    // eslint-disable-next-line no-unused-vars
-      const res = await chai.request(server)
+      await chai.request(server)
         .post('/api/v2/auth/signup')
         .send(user);
     } catch (err) {
