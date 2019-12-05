@@ -48,7 +48,7 @@ class RedFlag {
       @returns {object} redFlag object
    */
   async findOne(id) {
-    const text = 'SELECT redflags.id, redflags.title, redflags.comment, redflags.status, redflags.type, redflags.location, redflags.images, redflags.videos, redflags.createdBy, redflags.createdDate, redflags.modifiedDate, users.firstname, users.lastname, users.username, users.username, users.avatar FROM redflags JOIN users ON redflags.createdBy= users.id WHERE id = $1';
+    const text = 'SELECT redflags.id, redflags.title, redflags.comment, redflags.status, redflags.type, redflags.location, redflags.images, redflags.videos, redflags.createdBy, redflags.createdDate, redflags.modifiedDate, users.firstname, users.lastname, users.username, users.username, users.avatar FROM redflags JOIN users ON redflags.createdBy= users.id WHERE redflags.id= $1';
     try {
       const { rows } = await db.query(text, [id]);
       return rows[0];
@@ -61,7 +61,7 @@ class RedFlag {
       @returns {object} redFlag object
    */
   async findbeenCreated(createdBy, title, comment) {
-    const text = 'SELECT * FROM redflags WHERE createdBy = $1 AND title =$2 and comment =$3';
+    const text = 'SELECT * FROM redflags WHERE createdBy = $1 AND title =$2';
     try {
       const { rows } = await db.query(text, [createdBy, title, comment]);
       return rows[0];

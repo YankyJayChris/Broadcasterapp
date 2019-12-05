@@ -19,4 +19,5 @@ router.patch('/update/', uploadsingle, jwtToken.verifyToken, userValidator('user
 router.patch('/type/:id', jwtToken.verifyToken, userValidator('userID', 'params'), Users.updateUserRole);
 router.delete('/:id', jwtToken.verifyToken, userValidator('userID', 'params'), Users.delete);
 
+
 export default router;

@@ -48,7 +48,7 @@ class User {
       @returns {object} user object
    */
   async findOne(id) {
-    const text = 'SELECT * FROM users WHERE id = $1';
+    const text = 'SELECT id, firstname, lastname, username, phoneNumber, email, avatar, role,createdDate, modifiedDate FROM users WHERE id = $1';
     try {
       const { rows } = await db.query(text, [id]);
       return rows[0];
@@ -99,7 +99,7 @@ class User {
   /* @returns {object} returns all users
    */
   async findAll() {
-    const findAllQuery = 'SELECT * FROM users';
+    const findAllQuery = 'SELECT id, firstname, lastname, username, phoneNumber, email, avatar, role,createdDate, modifiedDate FROM users';
     try {
       const { rows, rowCount } = await db.query(findAllQuery);
       return { rows, rowCount };
