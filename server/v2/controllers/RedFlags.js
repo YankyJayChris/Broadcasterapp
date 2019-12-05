@@ -53,7 +53,7 @@ const RedFlag = {
   async getOne(req, res) {
     const redFlag = await RedFlagModel.findOne(req.params.id);
     if (!redFlag) {
-      return res.status(404).send({ message: 'redFlag not found' });
+      return res.status(422).send({ message: 'redFlag not found' });
     }
     return res.status(200).send({ data: redFlag });
   },
@@ -64,7 +64,7 @@ const RedFlag = {
   async update(req, res) {
     const redFlag = await RedFlagModel.findOne(req.params.id);
     if (!redFlag) {
-      return res.status(404).send({ message: 'redFlag not found' });
+      return res.status(404).send({ error: 'redFlag not found' });
     }
     if (redFlag.createdBy !== req.user.id) {
       return res.status(401).send({ error: 'this redflag is not yours' });
@@ -85,7 +85,7 @@ const RedFlag = {
   async updateStatus(req, res) {
     const redFlag = RedFlagModel.findOne(req.params.id);
     if (!redFlag) {
-      return res.status(404).send({ message: 'redFlag not found' });
+      return res.status(422).send({ message: 'redFlag not found' });
     }
     if (req.user.type !== 'admin') {
       return res.status(403).send({ error: 'you are not an admin' });
@@ -99,14 +99,16 @@ const RedFlag = {
    */
   async delete(req, res) {
     const redFlag = await RedFlagModel.findOne(req.params.id);
+    const thisflag = redFlag;
     if (!redFlag) {
       return res.status(404).send({ error: 'redFlag not found' });
     }
-    if (redFlag.createdBy !== req.user.id) {
+    if (thisflag.email !== req.user.email) {
+      console.log(thisflag.email);
       return res.status(401).send({ error: 'this redflag is not yours' });
     }
     const deletedredFlag = await RedFlagModel.delete(req.params.id);
-    return res.status(204).send(deletedredFlag);
+    return res.status(200).send(deletedredFlag);
   },
 };
 

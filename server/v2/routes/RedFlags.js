@@ -15,5 +15,6 @@ router.get('/', jwtToken.verifyToken, RedFlags.getAll);
 router.post('/', jwtToken.verifyToken, uploadFiles, redFlagValidator('redFlagPost', 'body'), RedFlags.create);
 router.get('/:id', jwtToken.verifyToken, redFlagValidator('redFlagID', 'params'), RedFlags.getOne);
 router.patch('/:id', jwtToken.verifyToken, redFlagValidator('redFlagUpdate', 'body'), RedFlags.update);
+router.delete('/:id', jwtToken.verifyToken, redFlagValidator('redFlagID', 'params'), RedFlags.delete);
 
 export default router;

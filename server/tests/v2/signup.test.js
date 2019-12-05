@@ -3,6 +3,7 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../server';
 import userModel from '../../v2/models/User';
+import redflagModel from '../../v2/models/RedFlag';
 
 // eslint-disable-next-line no-unused-vars
 const should = chai.should();
@@ -12,9 +13,13 @@ process.env.NODE_ENV = 'test';
 const { expect } = chai;
 chai.use(chaiHttp);
 describe('POST /api/v2/auth/signup', () => {
-  after((done) => {
-    userModel.dropTable();
-    done();
+  after(async () => {
+    try {
+      await redflagModel.dropTable();
+      userModel.dropTable();
+    } catch (err) {
+      (() => { throw err; }).should.throw();
+    }
   });
   it('it should create a user when all field required exist', async () => {
     const user = {

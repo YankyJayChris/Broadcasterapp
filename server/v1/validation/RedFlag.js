@@ -2,9 +2,9 @@ import Joi from '@hapi/joi';
 
 const schemas = {
   redFlagPost: Joi.object().keys({
-    title: Joi.string().required(),
-    comment: Joi.string().required(),
-    type: Joi.string().required(),
+    title: Joi.string().min(5).required(),
+    comment: Joi.string().min(5).required(),
+    type: Joi.string().valid('red-flag', ' ​intervention').required(),
     location: Joi.string().pattern(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/).required(),
     status: Joi.string().valid('draft', 'under investigation', 'resolved', 'rejected'),
   }),
