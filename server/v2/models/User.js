@@ -4,34 +4,6 @@ import uuid from 'uuid';
 import db from '../../db';
 
 class User {
-  /* class constructor
-    @param {object} data
-  */
-  constructor() {
-    const queryText = `CREATE TABLE IF NOT EXISTS
-      users(
-        id UUID PRIMARY KEY,
-        firstname VARCHAR(128) NOT NULL,
-        lastname VARCHAR(128) NOT NULL,
-        email VARCHAR(128) NOT NULL UNIQUE,
-        username VARCHAR(128) NOT NULL UNIQUE,
-        role VARCHAR(128) NOT NULL,
-        phoneNumber VARCHAR(128) NOT NULL UNIQUE,
-        avatar VARCHAR(128) NOT NULL,
-        password VARCHAR(128) NOT NULL,
-        createdDate TIMESTAMP,
-        modifiedDate TIMESTAMP
-      )`;
-
-    db.query(queryText)
-      .then(() => {
-        console.log('Users table created');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
   /*
     @returns {object} user object
    */
@@ -189,9 +161,31 @@ class User {
   */
   async dropTable() {
     const queryText = 'DROP TABLE IF EXISTS users';
-    await db.query(queryText)
+    await db.query(queryText);
+  }
+
+  /*
+    create table
+  */
+  async createTable() {
+    const queryText = `CREATE TABLE IF NOT EXISTS
+      users(
+        id UUID PRIMARY KEY,
+        firstname VARCHAR(128) NOT NULL,
+        lastname VARCHAR(128) NOT NULL,
+        email VARCHAR(128) NOT NULL UNIQUE,
+        username VARCHAR(128) NOT NULL UNIQUE,
+        role VARCHAR(128) NOT NULL,
+        phoneNumber VARCHAR(128) NOT NULL UNIQUE,
+        avatar VARCHAR(128) NOT NULL,
+        password VARCHAR(128) NOT NULL,
+        createdDate TIMESTAMP,
+        modifiedDate TIMESTAMP
+      )`;
+
+    db.query(queryText)
       .then(() => {
-        console.log('User table droped');
+        console.log('Users table created');
       })
       .catch((err) => {
         console.log(err);

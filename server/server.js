@@ -7,6 +7,9 @@ import redFlags from './v1/routes/RedFlags';
 import authV2 from './v2/routes/Auth';
 import redFlagsV2 from './v2/routes/RedFlags';
 
+import userModel from './v2/models/User';
+import redflagModel from './v2/models/RedFlag';
+
 
 dotenv.config();
 
@@ -15,7 +18,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 app.use('/public', express.static(path.join(__dirname, 'public')));
+
+userModel.createTable();
+redflagModel.createTable();
 
 app.get('/', (req, res) => res.status(200).json({ message: 'welcom to Broadcaster', documentation: 'https://documenter.getpostman.com/view/6306223/SWDzdfo3?version=latest' }));
 

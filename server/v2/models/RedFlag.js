@@ -4,34 +4,6 @@ import uuid from 'uuid';
 import db from '../../db';
 
 class RedFlag {
-  /* class constructor
-     @param {object} data
-   */
-  constructor() {
-    const queryText = `CREATE TABLE IF NOT EXISTS
-      redflags(
-        id UUID PRIMARY KEY,
-        type VARCHAR(128) NOT NULL,
-        createdBy VARCHAR(128) NOT NULL,
-        title VARCHAR(128) NOT NULL,
-        status VARCHAR(128) NOT NULL,
-        location VARCHAR(128) NOT NULL,
-        comment text NOT NULL,
-        images text[],
-        videos text[],
-        createdDate TIMESTAMP,
-        modifiedDate TIMESTAMP
-      )`;
-
-    db.query(queryText)
-      .then(() => {
-        console.log('redflags table created');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
   /*
     @returns {object} red-flag object
    */
@@ -65,6 +37,7 @@ class RedFlag {
     ];
     try {
       const { rows } = await db.query(text, values);
+      console.log(rows[0]);
       return rows[0];
     } catch (error) {
       return error;
@@ -75,7 +48,7 @@ class RedFlag {
       @returns {object} redFlag object
    */
   async findOne(id) {
-    const text = 'SELECT * FROM redflags WHERE id = $1';
+    const text = 'SELECT redflags.id, redflags.title, redflags.comment, redflags.status, redflags.type, redflags.location, redflags.images, redflags.videos, redflags.createdBy, redflags.createdDate, redflags.modifiedDate, users.firstname, users.lastname, users.username, users.username, users.avatar FROM redflags JOIN users ON redflags.createdBy= users.id WHERE id = $1';
     try {
       const { rows } = await db.query(text, [id]);
       return rows[0];
@@ -101,10 +74,11 @@ class RedFlag {
     @returns {object} returns all redFlags
    */
   async findAll() {
-    const findAllQuery = 'SELECT * FROM redflags LEFT JOIN users ON users.id= redflag.createdBy';
+    const findAllQuery = 'SELECT redflags.id, redflags.title, redflags.comment, redflags.status, redflags.type, redflags.location, redflags.images, redflags.videos, redflags.createdBy, redflags.createdDate, redflags.modifiedDate, users.firstname, users.lastname, users.username, users.username, users.avatar FROM redflags JOIN users ON redflags.createdBy= users.id ';
     try {
       const { rows, rowCount } = await db.query(findAllQuery);
-      return { rows, rowCount };
+      console.log(rowCount);
+      return rows;
     } catch (error) {
       return error;
     }
@@ -159,11 +133,33 @@ class RedFlag {
   /*
     drop table
   */
-  static async dropTable() {
+  async dropTable() {
     const queryText = 'DROP TABLE IF EXISTS redflags';
+    await db.query(queryText);
+  }
+
+  /*
+    create table
+  */
+  async createTable() {
+    const queryText = `CREATE TABLE IF NOT EXISTS
+      redflags(
+        id UUID PRIMARY KEY,
+        type VARCHAR(128) NOT NULL,
+        createdBy UUID NOT NULL REFERENCES users (id),
+        title VARCHAR(128) NOT NULL,
+        status VARCHAR(128) NOT NULL,
+        location VARCHAR(128) NOT NULL,
+        comment text NOT NULL,
+        images text[],
+        videos text[],
+        createdDate TIMESTAMP,
+        modifiedDate TIMESTAMP
+      )`;
+
     await db.query(queryText)
       .then(() => {
-        console.log('User table droped');
+        console.log('redflags table created');
       })
       .catch((err) => {
         console.log(err);

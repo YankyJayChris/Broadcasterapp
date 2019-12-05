@@ -5,8 +5,8 @@ const RedFlag = {
     @param {object} res
     @returns {object} redFlags array
    */
-  getAll(req, res) {
-    const redFlags = RedFlagModel.findAll();
+  async getAll(req, res) {
+    const redFlags = await RedFlagModel.findAll();
     return res.status(200).send({ data: redFlags });
   },
   /* @param {object} req
@@ -43,15 +43,15 @@ const RedFlag = {
     newRedflag.images = images;
     newRedflag.videos = videos;
     newRedflag.createdBy = user.id;
-    const redFlag = RedFlagModel.create(newRedflag);
+    const redFlag = await RedFlagModel.create(newRedflag);
     return res.status(201).send({ data: redFlag, message: 'Created red-flag record' });
   },
   /* @param {object} req
     @param {object} res
     @returns {object} redFlag object
    */
-  getOne(req, res) {
-    const redFlag = RedFlagModel.findOne(req.params.id);
+  async getOne(req, res) {
+    const redFlag = await RedFlagModel.findOne(req.params.id);
     if (!redFlag) {
       return res.status(404).send({ message: 'redFlag not found' });
     }
@@ -61,8 +61,8 @@ const RedFlag = {
     @param {object} res
     @returns {object} updated redFlag
    */
-  update(req, res) {
-    const redFlag = RedFlagModel.findOne(req.params.id);
+  async update(req, res) {
+    const redFlag = await RedFlagModel.findOne(req.params.id);
     if (!redFlag) {
       return res.status(404).send({ message: 'redFlag not found' });
     }
@@ -75,14 +75,14 @@ const RedFlag = {
       title: req.body.title,
       type: req.body.type,
     };
-    const updatedredFlag = RedFlagModel.update(req.params.id, updateData);
+    const updatedredFlag = await RedFlagModel.update(req.params.id, updateData);
     return res.status(200).send({ data: updatedredFlag, message: 'Updated red-flag record' });
   },
   /* @param {object} req
     @param {object} res
     @returns {object} updated status redFlag
    */
-  updateStatus(req, res) {
+  async updateStatus(req, res) {
     const redFlag = RedFlagModel.findOne(req.params.id);
     if (!redFlag) {
       return res.status(404).send({ message: 'redFlag not found' });
@@ -90,22 +90,22 @@ const RedFlag = {
     if (req.user.type !== 'admin') {
       return res.status(403).send({ error: 'you are not an admin' });
     }
-    const updatedredFlag = RedFlagModel.update(req.params.id, { status: req.body.status });
+    const updatedredFlag = await RedFlagModel.update(req.params.id, { status: req.body.status });
     return res.status(200).send({ data: updatedredFlag, message: 'Updated red-flag record' });
   },
   /* @param {object} req
     @param {object} res
     @returns {void} return statuc code 204
    */
-  delete(req, res) {
-    const redFlag = RedFlagModel.findOne(req.params.id);
+  async delete(req, res) {
+    const redFlag = await RedFlagModel.findOne(req.params.id);
     if (!redFlag) {
       return res.status(404).send({ error: 'redFlag not found' });
     }
     if (redFlag.createdBy !== req.user.id) {
       return res.status(401).send({ error: 'this redflag is not yours' });
     }
-    const deletedredFlag = RedFlagModel.delete(req.params.id);
+    const deletedredFlag = await RedFlagModel.delete(req.params.id);
     return res.status(204).send(deletedredFlag);
   },
 };
