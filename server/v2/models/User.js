@@ -15,7 +15,7 @@ class User {
         lastname VARCHAR(128) NOT NULL,
         email VARCHAR(128) NOT NULL UNIQUE,
         username VARCHAR(128) NOT NULL UNIQUE,
-        type VARCHAR(128) NOT NULL,
+        role VARCHAR(128) NOT NULL,
         phoneNumber VARCHAR(128) NOT NULL UNIQUE,
         avatar VARCHAR(128) NOT NULL,
         password VARCHAR(128) NOT NULL,
@@ -25,7 +25,7 @@ class User {
 
     db.query(queryText)
       .then(() => {
-        console.log('table created');
+        console.log('Users table created');
       })
       .catch((err) => {
         console.log(err);
@@ -43,14 +43,14 @@ class User {
       username: data.username || '',
       phoneNumber: data.phoneNumber || '',
       email: data.email || '',
-      avatar: data.avatar || '',
+      avatar: data.avatar || '/public/avatar/noprofile.png',
       password: data.password || '',
-      type: data.type || 'user',
+      role: data.role || 'user',
       createdDate: moment(new Date()),
       modifiedDate: moment(new Date()),
     };
 
-    const text = 'INSERT INTO users (id, firstname, lastname, username, phoneNumber, email, avatar, password, type,createdDate, modifiedDate) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) returning *';
+    const text = 'INSERT INTO users (id, firstname, lastname, username, phoneNumber, email, avatar, password, role,createdDate, modifiedDate) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) returning *';
     const values = [
       newuser.id,
       newuser.firstname,
@@ -60,7 +60,7 @@ class User {
       newuser.email,
       newuser.avatar,
       newuser.password,
-      newuser.type,
+      newuser.role,
       newuser.createdDate,
       newuser.modifiedDate,
     ];
@@ -143,7 +143,7 @@ class User {
   async update(id, data) {
     const queryString = 'SELECT * FROM users WHERE id=$1';
     const updateOneQuery = `UPDATE users
-      SET firstname=$1,lastname=$2,email=$3,phoneNumber=$4,password=$5,avatar=$6,type=$7,modifiedDate=$8
+      SET firstname=$1,lastname=$2,email=$3,phoneNumber=$4,password=$5,avatar=$6,role=$7,modifiedDate=$8
       WHERE id=$9 returning *`;
     try {
       const { rows } = await db.query(queryString, [id]);
@@ -157,9 +157,9 @@ class User {
         data.phoneNumber || rows[0].phoneNumber,
         data.password || rows[0].password,
         data.avatar || rows[0].avatar,
-        data.type || rows[0].type,
+        data.role || rows[0].role,
         moment(new Date()),
-        id,
+        rows[0].id,
       ];
       const response = await db.query(updateOneQuery, values);
       return response.rows[0];
@@ -187,11 +187,11 @@ class User {
   /*
     drop table
   */
-  dropTable() {
+  async dropTable() {
     const queryText = 'DROP TABLE IF EXISTS users';
-    db.query(queryText)
+    await db.query(queryText)
       .then(() => {
-        console.log('table droped');
+        console.log('User table droped');
       })
       .catch((err) => {
         console.log(err);

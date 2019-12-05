@@ -49,7 +49,7 @@ const User = {
     const payloaad = {
       id: savedUser.id,
       email: savedUser.email,
-      type: savedUser.type,
+      role: savedUser.role,
     };
     const token = jwtToken.createToken(payloaad);
     return res.status(201).send({
@@ -64,7 +64,7 @@ const User = {
           id: savedUser.id,
           phoneNumber: savedUser.phoneNumber,
           avatar: savedUser.avatar,
-          type: savedUser.type,
+          role: savedUser.role,
         },
       },
     });
@@ -85,7 +85,7 @@ const User = {
     const payloaad = {
       id: user.id,
       email: user.email,
-      type: user.type,
+      role: user.role,
     };
     const token = jwtToken.createToken(payloaad);
 
@@ -101,7 +101,7 @@ const User = {
           username: user.username,
           phoneNumber: user.phoneNumber,
           avatar: user.avatar,
-          type: user.type,
+          role: user.role,
         },
       },
     });

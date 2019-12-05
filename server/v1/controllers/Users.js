@@ -38,7 +38,7 @@ const User = {
     const payloaad = {
       id: savedUser.id,
       email: savedUser.email,
-      type: savedUser.type,
+      role: savedUser.role,
     };
     const token = jwtToken.createToken(payloaad);
 
@@ -54,7 +54,7 @@ const User = {
           id: savedUser.id,
           phoneNumber: savedUser.phoneNumber,
           avatar: savedUser.avatar,
-          type: savedUser.type,
+          role: savedUser.role,
         },
       },
     });
@@ -75,7 +75,7 @@ const User = {
     const payloaad = {
       id: user.id,
       email: user.email,
-      type: user.type,
+      role: user.role,
     };
     const token = jwtToken.createToken(payloaad);
 
@@ -91,7 +91,7 @@ const User = {
           username: user.username,
           phoneNumber: user.phoneNumber,
           avatar: user.avatar,
-          type: user.type,
+          role: user.role,
         },
       },
     });
@@ -160,7 +160,7 @@ const User = {
       username: updateduser.updatedusername,
       phoneNumber: updateduser.phoneNumber,
       avatar: updateduser.avatar,
-      type: updateduser.type,
+      role: updateduser.role,
     };
     return res.status(200).send({ data: userSend });
   },
@@ -168,7 +168,7 @@ const User = {
     @param {object} res
     @returns {object} updated user
    */
-  updateUserType(req, res) {
+  updateUserRole(req, res) {
     if (req.fileValidationError) {
       return res.status(409).send({ error: req.fileValidationError });
     }
@@ -179,7 +179,7 @@ const User = {
     if (req.user.id !== 'admin') {
       return res.status(403).send({ error: 'you are not an admin' });
     }
-    const updateduser = userModel.update(req.params.id, { type: req.body.type });
+    const updateduser = userModel.update(req.params.id, { role: req.body.role });
     const userSend = {
       id: updateduser.id,
       firstname: updateduser.firstname,
@@ -188,7 +188,7 @@ const User = {
       username: updateduser.updatedusername,
       phoneNumber: updateduser.phoneNumber,
       avatar: updateduser.avatar,
-      type: updateduser.type,
+      role: updateduser.role,
     };
     return res.status(200).send({ data: userSend });
   },
