@@ -12,9 +12,9 @@ const schemas = {
     role: Joi.string().valid('user', 'admin'),
   }),
   userUpdate: Joi.object().keys({
-    firstname: Joi.string(),
-    lastname: Joi.string(),
-    username: Joi.string().min(3).max(30),
+    firstname: Joi.string().alphanum(),
+    lastname: Joi.string().alphanum(),
+    username: Joi.string().alphanum().min(3).max(30),
     email: Joi.string().email(),
     phoneNumber: Joi.string().trim().regex(/^[0-9]{7,10}$/),
     password: Joi.string().min(6).pattern(/^[a-zA-Z0-9]{3,30}$/),
@@ -22,7 +22,7 @@ const schemas = {
   }),
   usersignin: Joi.object().keys({
     email: Joi.string().email().required(),
-    password: Joi.string().min(6).required(),
+    password: Joi.string().min(6).pattern(/^[a-zA-Z0-9]{3,30}$/).required(),
   }),
   userID: Joi.object().keys({
     id: Joi.string().guid({ version: 'uuidv4' }),
