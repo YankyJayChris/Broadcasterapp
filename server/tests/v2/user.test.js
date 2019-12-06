@@ -74,6 +74,18 @@ describe('/api/v1/auth', () => {
       (() => { throw err; }).should.throw();
     }
   });
+  it('PATCH /api/v2/auth/update User should be able to update their record if file is invalide', async () => {
+    try {
+      const res = await chai.request(server)
+        .patch('/api/v2/auth/update')
+        .set('x-access-token', authData.token)
+        .attach('avatar', './server/tests/testimages/message.txt');
+      expect(res).to.have.status(409);
+      expect(res.body).to.have.a.property('error');
+    } catch (err) {
+      (() => { throw err; }).should.throw();
+    }
+  });
   it('DELETE /api/v2/auth/ User should be able to delete single user', async () => {
     try {
       const res = await chai.request(server)

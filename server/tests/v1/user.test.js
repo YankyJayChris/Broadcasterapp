@@ -69,6 +69,7 @@ describe('/api/v1/auth', () => {
         done();
       });
   });
+
   it('DELETE /api/v1/auth/ User should be able to delete single user', (done) => {
     chai.request(server)
       .delete(`/api/v1/auth/${authData.user.id}`)

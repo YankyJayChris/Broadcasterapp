@@ -82,7 +82,7 @@ const RedFlag = {
   updateStatus(req, res) {
     const redFlag = RedFlagModel.findOne(req.params.id);
     if (!redFlag) {
-      return res.status(404).send({ message: 'redFlag not found' });
+      return res.status(422).send({ message: 'redFlag not found' });
     }
     if (req.user.type !== 'admin') {
       return res.status(403).send({ error: 'you are not an admin' });

@@ -37,7 +37,6 @@ class RedFlag {
     ];
     try {
       const { rows } = await db.query(text, values);
-      console.log(rows[0]);
       return rows[0];
     } catch (error) {
       return error;
@@ -161,8 +160,7 @@ class RedFlag {
       .then(() => {
         console.log('redflags table created');
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
       });
   }
 }

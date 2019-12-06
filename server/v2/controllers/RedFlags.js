@@ -104,7 +104,6 @@ const RedFlag = {
       return res.status(404).send({ error: 'redFlag not found' });
     }
     if (thisflag.email !== req.user.email) {
-      console.log(thisflag.email);
       return res.status(401).send({ error: 'this redflag is not yours' });
     }
     const deletedredFlag = await RedFlagModel.delete(req.params.id);
