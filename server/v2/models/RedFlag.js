@@ -73,7 +73,7 @@ class RedFlag {
     @returns {object} returns all redFlags
    */
   async findAll() {
-    const findAllQuery = 'SELECT redflags.id, redflags.title, redflags.comment, redflags.status, redflags.type, redflags.location, redflags.images, redflags.videos, redflags.createdBy, redflags.createdDate, redflags.modifiedDate, users.firstname, users.lastname, users.username, users.username, users.avatar FROM redflags JOIN users ON redflags.createdBy= users.id ';
+    const findAllQuery = 'SELECT redflags.id, redflags.title, redflags.comment, redflags.status, redflags.type, redflags.location, redflags.images, redflags.videos, redflags.createdBy, redflags.createdDate, redflags.modifiedDate, users.firstname, users.lastname, users.username, users.email, users.avatar FROM redflags JOIN users ON redflags.createdBy= users.id ';
     try {
       const { rows, rowCount } = await db.query(findAllQuery);
       console.log(rowCount);
