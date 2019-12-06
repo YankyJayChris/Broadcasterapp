@@ -2,27 +2,27 @@ import Joi from '@hapi/joi';
 
 const schemas = {
   signup: Joi.object().keys({
-    firstname: Joi.string().required(),
-    lastname: Joi.string().required(),
+    firstname: Joi.string().max(30).alphanum().required(),
+    lastname: Joi.string().max(30).alphanum().required(),
     username: Joi.string().min(3).max(30).required(),
     email: Joi.string().email().required(),
-    phoneNumber: Joi.string().required(),
+    phoneNumber: Joi.string().trim().regex(/^[0-9]{7,10}$/).required(),
     password: Joi.string().min(6).pattern(/^[a-zA-Z0-9]{3,30}$/).required(),
     re_password: Joi.ref('password'),
     role: Joi.string().valid('user', 'admin'),
   }),
   userUpdate: Joi.object().keys({
-    firstname: Joi.string(),
-    lastname: Joi.string(),
-    username: Joi.string().min(3).max(30),
+    firstname: Joi.string().alphanum(),
+    lastname: Joi.string().alphanum(),
+    username: Joi.string().alphanum().min(3).max(30),
     email: Joi.string().email(),
-    phoneNumber: Joi.string(),
+    phoneNumber: Joi.string().trim().regex(/^[0-9]{7,10}$/),
     password: Joi.string().min(6).pattern(/^[a-zA-Z0-9]{3,30}$/),
     role: Joi.string().valid('user', 'admin'),
   }),
   usersignin: Joi.object().keys({
     email: Joi.string().email().required(),
-    password: Joi.string().min(6).required(),
+    password: Joi.string().min(6).pattern(/^[a-zA-Z0-9]{3,30}$/).required(),
   }),
   userID: Joi.object().keys({
     id: Joi.string().guid({ version: 'uuidv4' }),
