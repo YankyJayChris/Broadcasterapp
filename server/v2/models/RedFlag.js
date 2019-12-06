@@ -60,7 +60,7 @@ class RedFlag {
       @returns {object} redFlag object
    */
   async findbeenCreated(createdBy, title, comment) {
-    const text = 'SELECT * FROM redflags WHERE createdBy = $1 AND title =$2';
+    const text = 'SELECT * FROM redflags WHERE createdBy = $1 AND title =$2 AND comment=$3';
     try {
       const { rows } = await db.query(text, [createdBy, title, comment]);
       return rows[0];
