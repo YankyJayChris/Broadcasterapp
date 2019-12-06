@@ -156,6 +156,30 @@ class User {
     }
   }
 
+  // create admin
+  async adminMaker() {
+    const text = 'INSERT INTO users (id, firstname, lastname, username, phoneNumber, email, avatar, password, role,createdDate, modifiedDate) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) returning *';
+    const values = [
+      uuid.v4(),
+      'Admin',
+      'super',
+      'superadmin',
+      '0000000000',
+      'admin@broadcaster.com',
+      './server/public/upload/testimage.jpeg',
+      'admin@super',
+      'admin',
+      moment(new Date()),
+      moment(new Date()),
+    ];
+    try {
+      const { rows } = await db.query(text, values);
+      return rows[0];
+    } catch (error) {
+      return error;
+    }
+  }
+
   /*
     drop table
   */
@@ -183,13 +207,7 @@ class User {
         modifiedDate TIMESTAMP
       )`;
 
-    db.query(queryText)
-      .then(() => {
-        console.log('Users table created');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    await db.query(queryText);
   }
 }
 export default new User();
